@@ -1,81 +1,87 @@
 {
     "workflowApiVersion": "1.1",
-    "metaData":
-    {
+    "metaData": {
         "icon": "images/icon.png",
         "iconSmall": "images/iconSmall.png",
-        "category": "<CATEGORY_OF_APP_BASED_ON_DOCS>"
+        "category": "message"
     },
-
     "type": "REST",
-    "lang":
-    {
-        "en-US":
-        {
-            "name": "App de prueba",
-            "description": "Esto es una prueba",
-            "step1Label": "Configure Activity"
+    "lang": {
+        "en-US": {
+            "name": "MailUp SMS",
+          "description": "MailUpSms",
+          "step1Label": "Configure Activity"
         }
     },
-    "arguments":
-    {
-        "execute":
-        {
-            "inArguments": [
-              { 
-                "SAMPLE_PARAM": "SAMPLE PARAM DATA FROM CONFIG.JSON"
-              }
-            ],
-            "outArguments": [],
-            "url": "https://pruebaherokuactivity.herokuapp.com/journeybuilder/execute/",
-            "verb": "POST",
+    "arguments": {
+        "execute": {       
+           "inArguments":[
+				{
+                    "tokens": "",
+                    "messageId" : "",
+                    "phone": "",
+                    "limit":"",
+                    "field1SF":"",
+                    "field2SF":"",
+                    "field3SF":"",
+                    "field4SF":"",
+                    "field5SF":"",
+                    "field1MU":"",
+                    "field2MU":"",
+                    "field3MU":"",
+                    "field4MU":"",
+                    "field5MU":"",                  
+                    "trackMail": "",
+                    "subject":"",
+                    "message":"",
+                    "sender":""
+                }									
+			],
+          "outArguments": [],
+          "url": "https://pruebaherokuactivity.herokuapp.com/execute/",
+           "verb": "POST",
             "body": "",
             "header": "",
             "format": "json",
             "useJwt": true,
-            "timeout": 10000
-        }
+            "timeout": 660000
+        } 
     },
-    
-    "configurationArguments":
-    {
-        "applicationExtensionKey": "28f102d2-1d05-43a7-a4b8-2de905609629",
-        "save":
-        {
-            "url": "https://pruebaherokuactivity.herokuapp.com/journeybuilder/save/",
-            "verb": "POST",
-            "useJwt": true
-        },
-        "publish":
-        {
-            "url": "https://pruebaherokuactivity.herokuapp.com/journeybuilder/publish",
-            "verb": "POST",
-            "useJwt": true
-        },
-        "stop":
-        {
-            "url": "https://pruebaherokuactivity.herokuapp.com/journeybuilder/stop",
-            "verb": "POST",
-            "useJwt": true
-        },
-        "validate":
-        {
-            "url": "https://pruebaherokuactivity.herokuapp.com/journeybuilder/validate",
-            "verb": "POST",
-            "useJwt": true
-        }
+    "configurationArguments": {
+      "applicationExtensionKey": "28f102d2-1d05-43a7-a4b8-2de905609629",
+      "save": {
+        "url": "https://pruebaherokuactivity.herokuapp.com/save/",
+          "verb": "POST",
+        "useJwt": true
+       },
+       "publish": {          
+        "url": "https://pruebaherokuactivity.herokuapp.com/publish/",
+           "verb": "POST",
+        "useJwt": true
+       },
+      "stop": {
+        "url": "https://pruebaherokuactivity.herokuapp.com/stop/",
+           "verb": "POST",
+        "useJwt": true
+      },
+      "validate": {
+        "url": "https://pruebaherokuactivity.herokuapp.com/validate/",
+        "verb": "POST",
+        "useJwt": true
+      }
     },
-    "userInterfaces":
-    {
+    "wizardSteps": [
+        { "label": "Configure Activity", "key": "step1" }
+    ],
+    "userInterfaces": {
         "configModal": {
-            "height": 700,
+            "height": 400,
             "width": 1000,
-            "fullscreen": false
+          "fullscreen": false
         }
     },
-    "schema": 
-    {
-        "arguments":{
+    "schema": {
+        "arguments": {
             "execute": {
                 "inArguments": [],
                 "outArguments": []

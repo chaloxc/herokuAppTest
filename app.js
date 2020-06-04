@@ -9,35 +9,32 @@ var path        = require('path');
 var request     = require('request');
 var routes      = require('./routes');
 var activity    = require('./routes/activity');
-
-// EXPRESS CONFIGURATION
+var index = require('./lib/index')
 var app = express();
 
 // Configure Express
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Express in Development Mode
 if ('development' == app.get('env')) {
   app.use(errorhandler());
 }
 
+// HubExchange Routes
 app.get('/', routes.index );
 app.post('/login', routes.login );
 app.post('/logout', routes.logout );
 
-// Custom Routes for MC
-app.post('/journeybuilder/save/', activity.save );
-app.post('/journeybuilder/validate/', activity.validate );
-app.post('/journeybuilder/publish/', activity.publish );
-app.post('/journeybuilder/execute/', activity.execute );
+// Custom Hello World Activity Routes
+app.post('/save/', activity.save );
+app.post('/validate/', activity.validate );
+app.post('/publish/', activity.publish );
+app.post('/execute/', activity.execute );
+app.post('/stop/', activity.stop);
+app.get('/query/', index.query);
 
-
-http.createServer(app).listen(
-  app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-  }
-);
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

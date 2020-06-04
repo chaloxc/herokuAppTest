@@ -2,32 +2,367 @@
 <html>
 
 <head>
-    <title>JOURNEY BUILDER APP TEMPLATE</title>
+    <title></title>
     <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie-edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link href='https://fonts.googleapis.com/css?family=lobster' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.8.3/fonts/SalesforceSans-Bold.ttf">
-    <link rel='stylesheet' href="css/styles.css">
-    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css"/>
     <script type="text/javascript" src="js/require.js"></script>
-    <script type="text/javascript">
-        (function() {
+    <script src="./mailupclient.js"></script>    
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>  
+   
+   <script type="text/javascript">
+   
+        (function () {
             var config = {
                 baseUrl: 'js'
             };
+
             var dependencies = [
                 'customActivity'
             ];
+
             require(config, dependencies);
         })();
+
+        var Json = '';
+        var CLIENT_ID = "d2448e31-18f3-4e7f-8d48-d028eefe5818";
+        var CLIENT_SECRET = "0bdfd60b-2bf9-4bfd-a6d4-3cf1cb90ee2d";
+        var CALLBACK_URI = "https://subsemailup.herokuapp.com/";
+        var modified = true;
+        var option = '';     
+
+        //INIT
+        $(document).ready(function(){
+            var text_max = 160;
+            var text_length = $('#textarea').val().length;
+            $('#count').html('Caracteres: ' + text_max + '/' + $('#textarea').val().length );
+            $('#pages').html('Total de mensajes: 1' );
+
+            $('#textarea').keyup(function() {
+                var text_length = $('#textarea').val().length;
+                var text_remaining = text_length;
+
+                $('#count').html('Caracteres: ' + text_max + '/'+ text_remaining);
+                $('#pages').html('Total de mensajes: ' + parseInt((text_remaining / text_max) + 1) );
+            });
+
+            $("#canSend").val(modified);
+            var mailUp = new MailUpClient(CLIENT_ID, CLIENT_SECRET, CALLBACK_URI);
+			mailUp.logOnWithUsernamePassword('m55391_02','Corchito2',
+            function(data) {
+                document.getElementById("pAuthorization").innerHTML = data;
+                var mailUpField = new XMLHttpRequest();
+                mailUpField.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                            var obj = JSON.parse(this.responseText);
+                            for(var i= 0; i < obj.Items[0].Fields.length ; i ++) {
+                                option += '<option value="'+ obj.Items[0].Fields[i].Id + '">' + 
+                                        obj.Items[0].Fields[i].Description + '</option>';                                
+                            }
+                            $('#var1Mail').append(option);
+                            $('#var2Mail').append(option);
+                            $('#var3Mail').append(option);
+                            $('#var4Mail').append(option);
+                            $('#var5Mail').append(option);                            
+                        } else if(this.readyState == 4 && this.status != 200) {
+                            console.log(this.responseText);
+                        }
+                };
+                mailUpField.open(
+                        "GET", 
+                        "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/Console/Sms/List/3/Recipients/Subscribed?PageNumber=1&pageSize=1", 
+                        true
+                    );
+                    mailUpField.setRequestHeader("Authorization", "Bearer " + data);
+                    mailUpField.send(null);                
+            },
+            function(error) {
+            });
+        });
+
+        //Create SMS
+        function createMessage() {
+            var token = document.getElementById("pAuthorization").innerHTML;
+            var textBody = $("#textarea").val();
+            var subject = $("#camp").val().split(' ').join('_');
+            var sender = $("#sender").val();
+
+                var createMessage = new XMLHttpRequest();
+                createMessage.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var responseId = JSON.parse(this.responseText)
+                        document.getElementById("messageId").innerHTML = responseId["idMessage"];
+                        alert('Se ha creado el mensaje correctamente'); 
+                        modified = true;
+                        $("#canSend").val(modified);
+
+                        if(document.getElementById("celula").value != ""){
+                            testDirecta();  
+                        }                       
+                    } else if(this.readyState == 4 && this.status != 200) {
+                        console.log(this.responseText);
+                    }
+                };
+                createMessage.open(
+                        "POST", 
+                        "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/Console/Sms/List/3/Message", 
+                        true
+                    );
+                createMessage.setRequestHeader("Content-type", "application/json");
+                createMessage.setRequestHeader("Authorization", "Bearer " + token);
+
+                createMessage.send(JSON.stringify({
+                    "Subject":"" + subject + "",
+                    "idList":3,
+                    "Content":"" + textBody + "",                 
+                    "Notes":"",
+                    "IsUnicode":false,
+                    "Sender":"" + sender + ""
+                        }
+                    )
+                );
+        }
+
+        //Update Message SMS
+        function updateMessage() {
+            var textBody = $("#textarea").val();
+            var subject = $("#camp").val().split(' ').join('_');
+            var sender = $("#sender").val();
+
+            if($("#textarea").val() === '' || $("#camp").val() === '' || $("#sender").val() === '') { 
+                alert('Ingrese campos obligatorios');
+            } else {            
+                var token = document.getElementById("pAuthorization").innerHTML;
+                var messageId = document.getElementById("messageId").innerHTML
+                var update = new XMLHttpRequest();
+                update.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        
+                        alert('Se guardo el mensaje correctamente');
+                        modified = true;
+                        $("#canSend").val(modified);
+
+                        if(document.getElementById("celula").value != ""){
+                            testDirecta();  
+                        }  
+
+                    } else if(this.readyState == 4 && this.status != 200) {
+                        console.log(this.responseText);
+                    }
+                };
+                update.open(
+                        "PUT", 
+                        "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/Console/Sms/List/3/Message/" + messageId + "", 
+                        true
+                    );
+                update.setRequestHeader("Content-type", "application/json");
+                update.setRequestHeader("Authorization", "Bearer " + token);
+
+                update.send(JSON.stringify({
+                    "Subject" : ""+subject+"",
+                    "idList" : 3,
+                    "idMessage" : parseInt(messageId),
+                    "Content" : "" + textBody + "",
+                        }
+                    )
+                );
+            }
+        } 
+        
+        //Identify the Update or Create Message
+        function save() {
+            if(document.getElementById("messageId").innerHTML === '') {
+                createMessage();
+            } else {
+                updateMessage();
+            }
+        }
+        
+        //InternoDirecta
+        function testDirecta() {
+            var data = document.getElementById("pAuthorization").innerHTML;
+            var group;
+             if(document.getElementById("celula").value == "EzequielO"){
+                group = "13843";
+            } else if(document.getElementById("celula").value == "MiguelJ"){
+                group = "13842";
+            } else if(document.getElementById("celula").value == "AgustinC") {
+                group = "13844";
+            }
+            var messageId = document.getElementById("messageId").innerHTML;
+            var intern = new XMLHttpRequest();
+            intern.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert('Se ha enviado el Test correctamente');
+                    console.log(this.response);
+                } else if(this.readyState == 4 && this.status != 200) {
+                    console.log(this.response);
+                }
+            };
+            intern.open(
+                    "POST", 
+                    "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/Console/Sms/Group/"+ group +"/Message/" + messageId + "/Send", 
+                    true
+                );                        
+            intern.setRequestHeader("Content-type", "application/json");
+            intern.setRequestHeader("Authorization", "Bearer " + data);
+            intern.send(null);
+        }        
+        //Validations
+        function isNumberKey(evt){
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function modifiedFalse() {
+            modified = false;
+            $("#canSend").val(modified);
+        }
+
+        function isMoreThan5Variable(evt){
+            var text = $("#dynamicVariable").val();
+            var arr = text.split(',');
+            if(arr.length === 6 )
+                return false
+            return true;
+        }        
     </script>
 </head>
-
-
 <body>
-    <h1>THIS IS THE APP UI PORTION</h1>
+    <div id="step1" class="step">
+        <div>
+            <p id = "pAuthorization" hidden></p>
+            <p id="group" hidden></p>
+            Id de Mailup:<p id="messageId"></p
+            <div style="padding-left: 20%;">
+                <table title="SMS MailUp" style="width:90%;">
+                    <tr>
+                        <td>
+                            <label>*Campaña</label>
+                            <input type="text"class="slds-input" id="camp" style="width: 50%;" placeholder="Inserte una Campaña" 
+                            onkeyup="modifiedFalse()" maxlength="25"> 
+                        </td>
+                        <td>
+                            <label>*Remitente</label>
+                            <input type="text"class="slds-input" id="sender" style="width: 50%;" placeholder="Inserte un Remitente"
+                            onkeyup="modifiedFalse()" maxlength="15">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding-top: 10px;" align="center">
+                
+                <table style="width:60%;">
+                       <textarea id="textarea" rows="10" style="width:60%;" class="slds-textarea"
+                        placeholder="Inserte su mensaje" onkeyup="modifiedFalse()"></textarea>
+                    <td>
+                        <div id="count" style="padding-left:30%"></div>                    
+                    </td>
+                    <td>
+                        <div id="pages" ></div>
+                    </td>
+                </table>
+            </div>
+
+            <div align="left" style="padding-left: 20%; padding-top: 20px;" onkeyup="modifiedFalse()">
+                Email de Seguimiento
+                <input type="text" id="trackMail" class="slds-input" style="width: 20%;" placeholder="Inserte un Email">
+
+                <output type="checkbox" id="canSend" hidden/>
+            </div>
+            <div align="left" style="padding-left: 20%; padding-top: 20px;">
+                Celulas para test: 
+                <select class="slds-select" id="celula" style="width:24%;"> 
+                    <option value='' >Seleccionar</option>
+                    <option value="MiguelJ"> Miguel Jauregui</option>
+                    <option value="EzequielO">Ezequiel Ogara</option>
+                    <option value="AgustinC">Gonzalo Alonso</option>
+                </select>
+                <button id="testButton" onclick="save();"
+                class="slds-button slds-button_brand">
+                Guardar y Enviar Prueba</button>
+            </div>
+            <div  align="center" >
+
+                    <table style="width:60%;">
+                        <tr>
+                            <td style="padding: 10px;">
+                                Salesforce
+                            </td>
+                            <td style="padding: 10px;">
+                                MailUp
+                            </td>      
+                        </tr>
+                        <tr>                  
+                            <td style="padding: 10px;">
+                                <select id="var1" class="slds-select">                                  
+                                    <option value="">Selecionar...</option>
+                                </select>
+    
+                            </td>
+                            <td style="padding: 10px;">
+                                <select id="var1Mail" class="slds-select">                                
+                                    <option value="">Selecionar...</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                                <td style="padding: 10px;">
+                                    <select id="var2" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <select id="var2Mail" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                                                   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">
+                                    <select id="var3" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <select id="var3Mail" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">
+                                    <select id="var4" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <select id="var4Mail" class="slds-select">
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">
+                                    <select id="var5" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <select id="var5Mail" class="slds-select">                                
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </td>
+                            </tr>                                                                                                                        
+                    </table>
+                </div>            
+        </div>  
+    </div>
 </body>
 
 </html>
