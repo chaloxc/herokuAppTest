@@ -9,11 +9,24 @@ var path        = require('path');
 var request     = require('request');
 var routes      = require('./routes');
 var activity    = require('./routes/activity');
-var index = require('./lib/index')
 var app = express();
-
 // Configure Express
-app.set('port', process.env.PORT || 3000);
+
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  }
+  else {
+    next();
+  }
+};
+app.use(allowCrossDomain);
+app.set('port', process.env.PORT || 4000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -33,7 +46,6 @@ app.post('/validate/', activity.validate );
 app.post('/publish/', activity.publish );
 app.post('/execute/', activity.execute );
 app.post('/stop/', activity.stop);
-app.get('/query/', index.query);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

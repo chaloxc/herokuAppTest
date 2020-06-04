@@ -2,14 +2,14 @@
     "workflowApiVersion": "1.1",
     "metaData": {
         "icon": "images/icon.png",
-        "iconSmall": "images/iconSmall.png",
+        "iconSmall": "images/icon.png",
         "category": "message"
     },
     "type": "REST",
     "lang": {
         "en-US": {
-            "name": "MailUp SMS",
-          "description": "MailUpSms",
+            "name": "Nueo Nombre Diferente",
+          "description": "Whatsapp",
           "step1Label": "Configure Activity"
         }
     },
@@ -18,23 +18,8 @@
            "inArguments":[
 				{
                     "tokens": "",
-                    "messageId" : "",
                     "phone": "",
-                    "limit":"",
-                    "field1SF":"",
-                    "field2SF":"",
-                    "field3SF":"",
-                    "field4SF":"",
-                    "field5SF":"",
-                    "field1MU":"",
-                    "field2MU":"",
-                    "field3MU":"",
-                    "field4MU":"",
-                    "field5MU":"",                  
-                    "trackMail": "",
-                    "subject":"",
-                    "message":"",
-                    "sender":""
+                    "message":""                
                 }									
 			],
           "outArguments": [],
