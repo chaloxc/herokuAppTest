@@ -41,7 +41,7 @@
 
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                
+                console.log('Arguments', decodedArgs)
                 /*let sendGroup = {
                     url: 'http://panel.apiwha.com/send_message.php?apikey=UKKEOBPZ0JN3SSVZ0ZRF&number=00549' + decodedArgs.phone + '&text=' +
                         unescape(encodeURIComponent(decodedArgs.message)) + '',
@@ -77,7 +77,9 @@
                     res.status(200).end();
                 });
                 res.status(200).end();
-            }
+            };
+            console.log('salgo sin entrar a ifs')
+            res.status(200).end();
         });
     };
     /*
