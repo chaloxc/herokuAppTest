@@ -31,7 +31,7 @@
      */
     exports.execute = function (req, res) {
         // example on how to decode JWT
-        console.log('execute')
+        console.log('execute request',req);
         request.post({
             'headers': {
                 'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
