@@ -23,7 +23,7 @@
                 }									
 			],
           "outArguments": [],
-          "url": "https://pruebaherokuactivity.herokuapp.com/execute/",
+          "url": "https://hidden-taiga-85455.herokuapp.com/execute/",
            "verb": "POST",
             "body": "",
             "header": "",
@@ -35,22 +35,22 @@
     "configurationArguments": {
       "applicationExtensionKey": "f4549bc1-3706-4553-9afb-e4e81969a8f7",
       "save": {
-        "url": "https://pruebaherokuactivity.herokuapp.com/save/",
+        "url": "https://hidden-taiga-85455.herokuapp.com/save/",
           "verb": "POST",
         "useJwt": true
        },
        "publish": {          
-        "url": "https://pruebaherokuactivity.herokuapp.com/publish/",
+        "url": "https://hidden-taiga-85455.herokuapp.com/publish/",
            "verb": "POST",
         "useJwt": true
        },
       "stop": {
-        "url": "https://pruebaherokuactivity.herokuapp.com/stop/",
+        "url": "https://hidden-taiga-85455.herokuapp.com/stop/",
            "verb": "POST",
         "useJwt": true
       },
       "validate": {
-        "url": "https://pruebaherokuactivity.herokuapp.com/validate/",
+        "url": "https://hidden-taiga-85455.herokuapp.com/validate/",
         "verb": "POST",
         "useJwt": true
       }
