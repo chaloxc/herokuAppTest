@@ -1,39 +1,48 @@
-# node-js-getting-started
+# Marketing Cloud Journey Builder Custom Activity Template
+> This template for Marketing Cloud Journey Builder Custom Activity. It is hosted on Heroku and running on NodeJS
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+This application is to be hosted on Heroku with specific credentials set up in the environment variables for it to be linked with Marketing Cloud.
+The application has a function that authenticates according the enhanced package Oauth2.
 
-## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+## Usage example
 
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+Drag and drop it into the Journey Builder Canvas. Set up the application if necessary through the UI.
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## Application Setup
 
-## Deploying to Heroku
+After uploading into Heroku and allowing the HTTPS to be set up, fill in the application URL within `config.json`
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
+Necessary steps thats required to set up the application.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+1. Create an package within Marketing Cloud.
+2. Add the API integration component making sure it's a Server - Server integration.
+3. Add the Journey Builder Activity component.
+4. Grab the `unique key` from the journey builder activity and place it within `config.json`.
+5. Grab the client ID, client secret, JWT Signing Secret and place it within Heroku as a env variables.
+    - `jwtSecret`
+    - `clientId`
+    - `clientSecret`
+6. Grab the Authentication Base URI and place it within the environment variable in Heroku.
+    - `authenticationUrl`
+7. Grab the HTTPS URL that is created by Heroku and place it within config.json replacing `<HTTPS_URL_OF_APP>`.
 
-## Documentation
+## Release History
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+* 1.0.0
+    * Initial Push with overall working template
+* 1.0.1
+    * Updated package json
 
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+## Meta
+
+Theon Thai Yun Tang – [Portfolio](https://www.theonthai.com/) – theonthai@gmail.com
+
+## Contributing
+
+1. Fork it (<https://github.com/theonthai45/SFMC-custom-activity-template/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
