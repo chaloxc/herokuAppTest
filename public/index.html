@@ -28,34 +28,15 @@
 
 
         function save() {
-            let text = document.getElementById("textarea").value
-            if (text.includes('%%Nombre%%')) {
-                text = text.replace('%%Nombre%%', document.getElementById("testName").value)
-            }
+            let text = document.getElementById("textarea").value;
 
-            if (text.includes('%%Apellido%%')) {
-                text = text.replace('%%Apellido%%', document.getElementById("testLastName").value)
-            }
+            payload['arguments'].execute.inArguments = [{
+                "tokens": 'savedAuthTokenshtml',
+                "phone": 'savedPhoneIndexhtml',
+                "message": text
+            }];    
+        };
 
-            if (text.includes('%%Preferencia%%')) {
-                text = text.replace('%%Preferencia%%', document.getElementById("testPreference").value)
-            }
-            console.log(text)
-            let sendMessage = new XMLHttpRequest();
-            sendMessage.onreadystatechange = function () {
-                alert('Se ha enviado el Test');
-            };
-            sendMessage.open(
-                "POST",
-                "https://panel.apiwha.com/send_message.php?apikey=UKKEOBPZ0JN3SSVZ0ZRF&number=00549" + document.getElementById(
-                    "phone").value + "&text=" +
-                text + "",
-                false
-            );
-            sendMessage.setRequestHeader("Content-type", "application/json");
-            sendMessage.setRequestHeader("Access-Control-Allow-Origin", "*");
-            sendMessage.send(JSON.stringify(null));
-        }
     </script>
 </head>
 

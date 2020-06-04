@@ -107,10 +107,18 @@ define([
         }
         console.log(message)
         console.log(phone)
+        
+        var hasInArguments = Boolean(
+            payload['arguments'] &&
+            payload['arguments'].execute &&
+            payload['arguments'].execute.inArguments &&
+            payload['arguments'].execute.inArguments.length > 0
+        );
+
         payload['arguments'].execute.inArguments = [{
-            "tokens": authTokens,
-            "phone": '{{' + phone + '}}',
-            "message": message
+            "tokens": 'SavedTokens',
+            "phone": 'SavedPhoneCustomActivity',
+            "message": hasInArguments ? JSON.stringify(payload['arguments'].execute.inArguments) : 'No saved'
         }];          
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);      
