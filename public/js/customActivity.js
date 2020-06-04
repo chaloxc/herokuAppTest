@@ -83,31 +83,7 @@ define([
     }
 
     function save() {
-         
-        let variable1 = document.getElementById("variable1").value
-        let variable2 = document.getElementById("variable2").value
-        let variable3 = document.getElementById("variable3").value
-        let variable4 = document.getElementById("variable4").value
-        let variable5 = document.getElementById("variable5").value
         let message = document.getElementById("textarea").value
-        if(variable1 != ""){
-            message = message.replace('%%'+ variable1 + '%%', '{{' +  mapLabelValue.get(variable1) + '}}')
-        }
-        if(variable2 != ""){
-            message = message.replace('%%'+ variable2 + '%%','{{' +   mapLabelValue.get(variable2) + '}}')
-        }
-        if(variable3 != ""){
-            message = message.replace('%%'+ variable3 + '%%', '{{' +  mapLabelValue.get(variable3) + '}}')
-        }
-        if(variable4 != ""){
-            message = message.replace('%%'+ variable4 + '%%','{{' +   mapLabelValue.get(variable4) + '}}')
-        }
-        if(variable5 != ""){
-            message = message.replace('%%'+ variable5 + '%%', '{{' +  mapLabelValue.get(variable5) + '}}')
-        }
-        console.log(message)
-        console.log(phone)
-        
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -118,7 +94,7 @@ define([
         payload['arguments'].execute.inArguments = [{
             "tokens": 'SavedTokens',
             "phone": 'SavedPhoneCustomActivity',
-            "message": hasInArguments ? JSON.stringify(payload['arguments'].execute.inArguments) : 'No saved'
+            "message": message
         }];          
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);      
