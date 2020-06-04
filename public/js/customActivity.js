@@ -60,10 +60,13 @@ define([
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
         
         console.log('esto es inArguments(lo guardado)',inArguments);
-        let message = document.getElementById("textarea").value;
-        let title = document.getElementById("title").value;
-        title = inArguments[0].message?inArguments[0].message:"";
-        message = inArguments[0].title?inArguments[0].title:"";
+        let title = inArguments[0].message?inArguments[0].message:"";
+        let message = inArguments[0].message?inArguments[0].message:"";
+        console.log('mensaje inArguments[0].message ', inArguments[0].message);
+        console.log('title inArguments[0].title ', inArguments[0].title;
+        document.getElementById("title").value = title;
+        document.getElementById("textarea").value = message;
+        
         
         $.each(inArguments, function (index, inArgument) {
             $.each(inArgument, function (key, val) {
