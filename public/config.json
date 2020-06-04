@@ -33,7 +33,7 @@
         } 
     },
     "configurationArguments": {
-      "applicationExtensionKey": "f4549bc1-3706-4553-9afb-e4e81969a8f7",
+      "applicationExtensionKey": "6b3517f8-4077-47af-83b5-c79a07a6f621",
       "save": {
         "url": "https://hidden-taiga-85455.herokuapp.com/save",
           "verb": "POST",

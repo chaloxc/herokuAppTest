@@ -29,7 +29,7 @@
 
         function save() {
             let text = document.getElementById("textarea").value;
-
+            console.log(payload['arguments']);
             payload['arguments'].execute.inArguments = [{
                 "tokens": 'savedAuthTokenshtml',
                 "phone": 'savedPhoneIndexhtml',
