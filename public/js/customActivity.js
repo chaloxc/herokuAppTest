@@ -42,7 +42,7 @@ define([
             connection.trigger('requestEndpoints');            
          });
 
-    }
+    };
 
     function initialize(data) {
         console.log(data);
@@ -59,7 +59,7 @@ define([
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        console.log(inArguments);
+        console.log('esto es inArguments(lo guardado)',inArguments);
 
         $.each(inArguments, function (index, inArgument) {
             $.each(inArgument, function (key, val) {
@@ -72,7 +72,8 @@ define([
             text: 'done',
             visible: true,
         });
-    }
+    };
+
     function onGetTokens(tokens) {
         console.log(tokens);
         authTokens = tokens;
@@ -80,7 +81,7 @@ define([
 
     function onGetEndpoints(endpoints) {
         console.log(endpoints);
-    }
+    };
 
     function save() {
         let message = document.getElementById("textarea").value
