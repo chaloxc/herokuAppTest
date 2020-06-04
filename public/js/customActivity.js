@@ -58,9 +58,13 @@ define([
         );
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
-
+        
         console.log('esto es inArguments(lo guardado)',inArguments);
-
+        let message = document.getElementById("textarea").value;
+        let title = document.getElementById("title").value;
+        title = inArguments[0].message?inArguments[0].message:"";
+        message = inArguments[0].title?inArguments[0].title:"";
+        
         $.each(inArguments, function (index, inArgument) {
             $.each(inArgument, function (key, val) {
                console.log(inArguments); 
@@ -84,7 +88,8 @@ define([
     };
 
     function save() {
-        let message = document.getElementById("textarea").value
+        let message = document.getElementById("textarea").value;
+        let title = document.getElementById("title").value;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -93,8 +98,7 @@ define([
         );
 
         payload['arguments'].execute.inArguments = [{
-            "tokens": 'SavedTokens',
-            "phone": 'SavedPhoneCustomActivity',
+            "title": title,
             "message": message
         }];          
         payload['metaData'].isConfigured = true;

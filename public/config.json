@@ -17,9 +17,8 @@
         "execute": {       
            "inArguments":[
 				{
-                    "tokens": "",
-                    "phone": "",
-                    "message":""                
+                    "title": "",
+                    "message": ""
                 }									
 			],
           "outArguments": [],

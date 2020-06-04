@@ -29,9 +29,9 @@
 
         function save() {
             let text = document.getElementById("textarea").value;
+            let title = document.getElementById("title").value;
             payload['arguments'].execute.inArguments = [{
-                "tokens": 'savedAuthTokenshtml',
-                "phone": 'savedPhoneIndexhtml',
+                "title": title,
                 "message": text
             }];    
         };
@@ -41,51 +41,18 @@
 
 <body>
     <div id="step1" class="step">
-        <table title="Whatsapp Message" style="width:90%;" align="center">
-            <textarea id="textarea" rows="10" style="width:60%;" class="slds-textarea" placeholder="Inserte su mensaje"></textarea>
+        
+        
+        <table title="Titulo" style="width:90%;" align="center">
+            <label>Titulo</label>
+            <input type="text" class="slds-input" id="title" style="width: 100%;" placeholder="Ingrese un titulo">
         </table>
-        <label>Numero Prueba</label>
-        <input type="text" class="slds-input" id="phone" style="width: 20%;" placeholder="Ingrege un movil">
-        <button id="testButton" onclick="save();" class="slds-button slds-button_brand">
-            Enviar Prueba</button>
-        <table title="Variables de Prueba" style="width:90%;">
-
-            <tr>
-                <td style="padding-top: 13px;">
-                    *Las variables Dinamicas en el texto, separarlas por comma (,), con el nombre de los datos de entrada, maximo 5:
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top: 13px;">
-                    <label>Variable1</label>
-                    <input type="text" class="slds-input" id="variable1" style="width: 20%;" placeholder="Inserte variables">
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top: 13px;">
-                    <label>Variable2</label>
-                    <input type="text" class="slds-input" id="variable2" style="width: 20%;" placeholder="Inserte variables">
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top: 13px;">
-                    <label>Variable3</label>
-                    <input type="text" class="slds-input" id="variable3" style="width: 20%;" placeholder="Inserte variables">
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top: 13px;">
-                    <label>Variable4</label>
-                    <input type="text" class="slds-input" id="variable4" style="width: 20%;" placeholder="Inserte variables">
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top: 13px;">
-                    <label>Variable5</label>
-                    <input type="text" class="slds-input" id="variable5" style="width: 20%;" placeholder="Inserte variables">
-                </td>                                                                
-            </tr>
+        
+        <table title="Body" style="width:90%;" align="center">
+            <label>Body</label>
+            <textarea id="textarea" rows="10" style="width:60%;" class="slds-textarea" placeholder="Ingrese un body"></textarea>
         </table>
+        
 
     </div>
 </body>
