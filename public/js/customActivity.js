@@ -59,11 +59,8 @@ define([
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
         
-        console.log('esto es inArguments(lo guardado)',inArguments);
-        let title = inArguments[0].message?inArguments[0].message:"";
+        let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
-        console.log('mensaje inArguments[0].message ', inArguments[0].message);
-        console.log('title inArguments[0].title ', inArguments[0].title);
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         
