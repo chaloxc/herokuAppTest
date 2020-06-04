@@ -52,6 +52,7 @@
                     console.log(error);
                     res.status(200).end();
                 })*/
+                res.status(200).end();
             }
         });
     };
