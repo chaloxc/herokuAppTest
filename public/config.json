@@ -8,8 +8,8 @@
     "type": "REST",
     "lang": {
         "en-US": {
-            "name": "Nueo Nombre Diferente",
-          "description": "Whatsapp",
+            "name": "WPN",
+          "description": "Web push notifications",
           "step1Label": "Configure Activity"
         }
     },
