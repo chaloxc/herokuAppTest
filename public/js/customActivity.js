@@ -63,7 +63,7 @@ define([
         let title = inArguments[0].message?inArguments[0].message:"";
         let message = inArguments[0].message?inArguments[0].message:"";
         console.log('mensaje inArguments[0].message ', inArguments[0].message);
-        console.log('title inArguments[0].title ', inArguments[0].title;
+        console.log('title inArguments[0].title ', inArguments[0].title);
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         
