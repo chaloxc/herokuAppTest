@@ -41,17 +41,41 @@
 
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                //let sendGroup = {
-                  //  url: 'http://panel.apiwha.com/send_message.php?apikey=UKKEOBPZ0JN3SSVZ0ZRF&number=00549' + decodedArgs.phone + '&text=' +
-                    //    unescape(encodeURIComponent(decodedArgs.message)) + '',
-                   // method: 'POST',
-                //}
-                console.log(decoded);
-                /*request(sendGroup, function (error, response, body) {
+                
+                /*let sendGroup = {
+                    url: 'http://panel.apiwha.com/send_message.php?apikey=UKKEOBPZ0JN3SSVZ0ZRF&number=00549' + decodedArgs.phone + '&text=' +
+                        unescape(encodeURIComponent(decodedArgs.message)) + '',
+                    method: 'POST'
+                }
+                
+                request(sendGroup, function (error, response, body) {
                     console.log(body);
                     console.log(error);
                     res.status(200).end();
-                })*/
+                });*/
+                Request.post({
+                    'headers': {
+                        'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
+                        'Content-Type': 'application/json'
+                    },
+                    'url': 'https://fcm.googleapis.com/fcm/send',
+                    'body': `
+                        { 
+                            "to":"e3fPgeN85g-2eBqxvOQ_IH:APA91bFGWXviLzWzCZkuOgjIB82yBC_OZ-xCmFN5sDHIOPEy7r4n8OJXXMIDne1xhfGb0xcY8LX7-j89zYi6vDKBoShF2pZg34iYeQba9TUAEBOF8roLPQLkUgguAADdWA0E2N9pqQPk",
+                            "notification":{
+                              "title":"Prueba desde POSTMAN",
+                              "body":"${JSON.stringify(decoded)}"
+                            },
+                            "data":{
+                              "title":"Titulo datos",
+                              "body":"Body datos "
+                            },
+                            "priority":"high"
+                        }
+                    `
+                },(sendError, sendResponse, sendBody) => {
+                    res.status(200).end();
+                });
                 res.status(200).end();
             }
         });
