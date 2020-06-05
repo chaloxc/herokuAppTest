@@ -112,7 +112,7 @@ define([
     function save() {
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
-        let arguments = [{
+        payload['arguments'].execute.inArguments = [{
             "title": title,
             "message": message,
             "nombre": "{{" + nombre + "}}",
@@ -121,11 +121,18 @@ define([
             "token": "{{" + token + "}}",
             "key": "{{" + key + "}}"
         }];          
-        payload['arguments'].execute.inArguments = arguments
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
-    
-        console.log("*** ARGUMENTS *** ",arguments);
+        let ARGUMENTOS = {
+            title,
+            message,
+            nombre: "{{" + nombre + "}}",
+            email: "{{" + email + "}}",
+            apellido: "{{" + apellido + "}}",
+            token: "{{" + token + "}}",
+            key: "{{" + key + "}}"
+        };          
+        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
