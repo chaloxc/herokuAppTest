@@ -124,6 +124,7 @@ define([
         }];          
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
+        console.log("*** ARGUMENTS *** ",payload['arguments'].execute.inArguments)
     }
 
 });

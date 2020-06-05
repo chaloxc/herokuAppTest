@@ -17,8 +17,13 @@
         "execute": {       
            "inArguments":[
 				{
-                    "title": "",
-                    "message": ""
+              "title": "",
+              "message": "",
+              "nombre": "",
+              "email": "",
+              "apellido": "",
+              "token": "",
+              "key": ""
                 }									
 			],
           "outArguments": [],
