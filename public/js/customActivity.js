@@ -49,19 +49,13 @@ define([
          var eventDefinitionKey;
             connection.trigger('requestTriggerEventDefinition');
 
-            connection.on('requestedTriggerEventDefinition',
-            function(eventDefinitionModel) {
-                if(eventDefinitionModel){
+            var eventDefinitionKey;
+            connection.trigger('requestInteraction');
 
-                    eventDefinitionKey = eventDefinitionModel.eventDefinitionKey;
-                    console.log(">>>Event Definition Key " + eventDefinitionKey);
-                    /*If you want to see all*/
-                    console.log('>>>Request Trigger', 
-                    JSON.stringify(eventDefinitionModel));
-                }
-
+            connection.on('requestedInteraction', function(settings){
+                eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
             });
-            console.log("{{Contact.Attribute."+ eventDefinitionKey+".\"token\"}}")
+            console.log("{{Contact.Attribute."+ eventDefinitionKey+".token}}")
 
     };
 
