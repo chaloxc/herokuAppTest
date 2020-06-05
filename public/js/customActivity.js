@@ -25,9 +25,11 @@ define([
     function onRender() {
         // JB will respond the first time 'ready' is called with 'initActivity'
 
+        // pedimos el nombre de la data extension para poder mapear estos datos
+        // al momento de correr el journey y se autocompleten con los datos que
+        // corresponde en cada iteracion
         connection.trigger('requestSchema');
         connection.on('requestedSchema', function (data) {
-            // save schema
             schemas = data['schema'];
             console.log(schemas);
             for(var i = 0; i < data['schema'].length; i++) {
@@ -39,8 +41,9 @@ define([
                }       
             }
             
-            console.log(mapLabelValue);
-            
+            // este caso particular trabaja con una data extension que tiene los siguientes campos
+            // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
+            // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
             console.log(mapLabelValue);
             if(mapLabelValue.get("nombre")) {
                 nombre = mapLabelValue.get("nombre");
@@ -109,6 +112,9 @@ define([
         console.log(endpoints);
     };
 
+    // Funcion que se ejecuta cuando apretamos en "done" desde marketing cloud
+    // aca guardamos los datos que despues se van a enviar a nuestra app y se
+    // van a procesar con execute()
     function save() {
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";

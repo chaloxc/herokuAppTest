@@ -31,14 +31,12 @@
      */
     exports.execute = function (req, res) {
         // example on how to decode JWT
-        console.log('execute request',req);
         JWT(req.body, process.env.jwtSecret, (err, decoded) => {
-            console.log('inside jwt');
             if (err) {
                 console.error(err);
                 return res.status(401).end();
             }
-
+            // decoded contiene los parametros que definimos en el config.json y se completan con nuestra data extension
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
                 console.log('Decoded arguments', decodedArgs);
