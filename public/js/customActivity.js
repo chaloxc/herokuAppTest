@@ -116,15 +116,16 @@ define([
         payload['arguments'].execute.inArguments = [{
             "title": title,
             "message": message,
-            "nombre": nombre,
-            "email": email,
-            "apellido": apellido,
-            "token": token,
-            "key": key
+            "nombre": "{{" + nombre + "}}",
+            "email": "{{" + email + "}}",
+            "apellido": "{{" + apellido + "}}",
+            "token": "{{" + token + "}}",
+            "key": "{{" + key + "}}"
         }];          
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
-        console.log("*** ARGUMENTS *** ",payload['arguments'].execute.inArguments)
+        let ARGUMENTOS = payload['arguments'].execute.inArguments
+        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
