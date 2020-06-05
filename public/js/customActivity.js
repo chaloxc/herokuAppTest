@@ -110,15 +110,9 @@ define([
     };
 
     function save() {
-        let message = document.getElementById("textarea").value;
-        let title = document.getElementById("title").value;
-        var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
-        );
-
+        let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
+        let title = document.getElementById("title").value?document.getElementById("title").value:"";
+       
         payload['arguments'].execute.inArguments = [{
             "title": title,
             "message": message,
@@ -129,8 +123,7 @@ define([
             "key": key
         }];          
         payload['metaData'].isConfigured = true;
-        connection.trigger('updateActivity', payload); 
-        console.log('Lo guardado',payload['arguments'].execute.inArguments);     
+        connection.trigger('updateActivity', payload);  
     }
 
 });
