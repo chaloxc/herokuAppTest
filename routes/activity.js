@@ -66,13 +66,14 @@
                         }
                     `
                 },(sendError, sendResponse, sendBody) => {
-                    console.log('no falle?');
                     res.status(200).end();
                 });
                 res.status(200).end();
-            };
-            console.log('salgo sin entrar a ifs, no hay args??')
-            res.status(200).end();
+            } else {
+                console.error('inArguments invalid.');
+                return res.status(400).end();
+            }
+            
         });
     };
     /*
