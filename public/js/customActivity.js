@@ -9,7 +9,11 @@ define([
     var payload = {};    
     var schemas = [];  
     let variableActivity = [];
-    let phone;
+    let nombre = "";
+    let apellido = "";
+    let email = "";
+    let token = "";
+    let key = "";
     let mapLabelValue = new Map();
     $(window).ready(onRender);
     
@@ -29,33 +33,35 @@ define([
             for(var i = 0; i < data['schema'].length; i++) {
                 var split = data['schema'][i].key.split('.');                
                 mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
-                if(data['schema'][i].type === 'Phone'){
-                    phone = split[0] + '.' +  split[1] +'.\"' + split[2] + '\"';
-                console.log(phone);
+                if(data['schema'][i].type === 'token'){
+                    console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
+                
                }       
             }
             
             console.log(mapLabelValue);
+            
+            console.log(mapLabelValue);
+            if(mapLabelValue.get("nombre")) {
+                nombre = mapLabelValue.get("nombre");
+            }
+            if(mapLabelValue.get("apellido")) {
+                apellido = mapLabelValue.get("apellido");
+            }
+            if(mapLabelValue.get("email")) {
+                email = mapLabelValue.get("email");
+            }
+            if(mapLabelValue.get("token")) {
+                token = mapLabelValue.get("token");
+            }
+            if(mapLabelValue.get("key")) {
+                key = mapLabelValue.get("key");
+            }
+
             connection.trigger('ready');
-
             connection.trigger('requestTokens');
-            connection.trigger('requestEndpoints');        
-            connection.trigger('requestSchema');
-            connection.on('requestedSchema', function (data) {
-                // save schema
-                console.log('*** Schema ***', JSON.stringify(data['schema']));
-            });    
+            connection.trigger('requestEndpoints');            
          });
-         var eventDefinitionKey;
-            connection.trigger('requestTriggerEventDefinition');
-
-            var eventDefinitionKey;
-            connection.trigger('requestInteraction');
-
-            connection.on('requestedInteraction', function(settings){
-                eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
-            });
-            console.log("{{Contact.Attribute."+ eventDefinitionKey+".token}}")
 
     };
 
@@ -76,6 +82,7 @@ define([
         
         let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
+        
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         
@@ -114,10 +121,16 @@ define([
 
         payload['arguments'].execute.inArguments = [{
             "title": title,
-            "message": message
+            "message": message,
+            "nombre": nombre,
+            "email": email,
+            "apellido": apellido,
+            "token": token,
+            "key": key
         }];          
         payload['metaData'].isConfigured = true;
-        connection.trigger('updateActivity', payload);      
+        connection.trigger('updateActivity', payload); 
+        console.log('Lo guardado',payload['arguments'].execute.inArguments);     
     }
 
 });
