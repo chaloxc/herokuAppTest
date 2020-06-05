@@ -61,7 +61,7 @@ define([
                 }
 
             });
-            console.log("{{Contact.Attribute."+ eventDefinitionKey+".\"token\"}}"),
+            console.log("{{Contact.Attribute."+ eventDefinitionKey+".\"token\"}}")
 
     };
 
