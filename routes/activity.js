@@ -41,7 +41,10 @@
 
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                console.log('Decoded arguments', decodedArgs)
+                console.log('Decoded arguments', decodedArgs);
+                console.log('Token', decodedArgs.token);
+                console.log('Ttitle', decodedArgs.title);
+                console.log('Message', decodedArgs.message);
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -50,7 +53,7 @@
                     'url': 'https://fcm.googleapis.com/fcm/send',
                     'body': `
                         { 
-                            "to":"e3fPgeN85g-2eBqxvOQ_IH:APA91bFGWXviLzWzCZkuOgjIB82yBC_OZ-xCmFN5sDHIOPEy7r4n8OJXXMIDne1xhfGb0xcY8LX7-j89zYi6vDKBoShF2pZg34iYeQba9TUAEBOF8roLPQLkUgguAADdWA0E2N9pqQPk",
+                            "to":"${decodedArgs.token}",
                             "notification":{
                               "title":"${decodedArgs.title}",
                               "body":"${decodedArgs.message}"
@@ -63,6 +66,7 @@
                         }
                     `
                 },(sendError, sendResponse, sendBody) => {
+                    console.log('no falle?');
                     res.status(200).end();
                 });
                 res.status(200).end();
