@@ -39,8 +39,29 @@ define([
             connection.trigger('ready');
 
             connection.trigger('requestTokens');
-            connection.trigger('requestEndpoints');            
+            connection.trigger('requestEndpoints');        
+            connection.trigger('requestSchema');
+            connection.on('requestedSchema', function (data) {
+                // save schema
+                console.log('*** Schema ***', JSON.stringify(data['schema']));
+            });    
          });
+         var eventDefinitionKey;
+            connection.trigger('requestTriggerEventDefinition');
+
+            connection.on('requestedTriggerEventDefinition',
+            function(eventDefinitionModel) {
+                if(eventDefinitionModel){
+
+                    eventDefinitionKey = eventDefinitionModel.eventDefinitionKey;
+                    console.log(">>>Event Definition Key " + eventDefinitionKey);
+                    /*If you want to see all*/
+                    console.log('>>>Request Trigger', 
+                    JSON.stringify(eventDefinitionModel));
+                }
+
+            });
+            console.log("{{Contact.Attribute."+ eventDefinitionKey+".\"token\"}}"),
 
     };
 
