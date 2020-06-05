@@ -56,7 +56,7 @@
                             "to":"${decodedArgs.token}",
                             "notification":{
                               "title":"${decodedArgs.title}",
-                              "body":"${decodedArgs.message}"
+                              "body":"${decodedArgs.message+decodedArgs.nombre}"
                             },
                             "data":{
                               "title":"Titulo datos",
