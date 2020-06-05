@@ -32,31 +32,8 @@
     exports.execute = function (req, res) {
         // example on how to decode JWT
         console.log('execute request',req);
-        request.post({
-            'headers': {
-                'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
-                'Content-Type': 'application/json'
-            },
-            'url': 'https://fcm.googleapis.com/fcm/send',
-            'body': `
-                { 
-                    "to":"e3fPgeN85g-2eBqxvOQ_IH:APA91bFGWXviLzWzCZkuOgjIB82yBC_OZ-xCmFN5sDHIOPEy7r4n8OJXXMIDne1xhfGb0xcY8LX7-j89zYi6vDKBoShF2pZg34iYeQba9TUAEBOF8roLPQLkUgguAADdWA0E2N9pqQPk",
-                    "notification":{
-                      "title":"Prueba desde POSTMAN",
-                      "body":"${JSON.stringify(req.body)}"
-                    },
-                    "data":{
-                      "title":"Titulo datos",
-                      "body":"Body datos "
-                    },
-                    "priority":"high"
-                }
-            `
-        },(sendError, sendResponse, sendBody) => {
-            res.status(200).end();
-        });
         JWT(req.body, process.env.jwtSecret, (err, decoded) => {
-
+            console.log('inside jwt');
             if (err) {
                 console.error(err);
                 return res.status(401).end();
@@ -64,18 +41,7 @@
 
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                console.log('Arguments', decodedArgs)
-                /*let sendGroup = {
-                    url: 'http://panel.apiwha.com/send_message.php?apikey=UKKEOBPZ0JN3SSVZ0ZRF&number=00549' + decodedArgs.phone + '&text=' +
-                        unescape(encodeURIComponent(decodedArgs.message)) + '',
-                    method: 'POST'
-                }
-                
-                request(sendGroup, function (error, response, body) {
-                    console.log(body);
-                    console.log(error);
-                    res.status(200).end();
-                });*/
+                console.log('Decoded arguments', decodedArgs)
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -87,7 +53,7 @@
                             "to":"e3fPgeN85g-2eBqxvOQ_IH:APA91bFGWXviLzWzCZkuOgjIB82yBC_OZ-xCmFN5sDHIOPEy7r4n8OJXXMIDne1xhfGb0xcY8LX7-j89zYi6vDKBoShF2pZg34iYeQba9TUAEBOF8roLPQLkUgguAADdWA0E2N9pqQPk",
                             "notification":{
                               "title":"Prueba desde POSTMAN",
-                              "body":"${JSON.stringify(decoded)}"
+                              "body":"${JSON.stringify(decodedArgs)}"
                             },
                             "data":{
                               "title":"Titulo datos",
@@ -101,7 +67,7 @@
                 });
                 res.status(200).end();
             };
-            console.log('salgo sin entrar a ifs')
+            console.log('salgo sin entrar a ifs, no hay args??')
             res.status(200).end();
         });
     };
