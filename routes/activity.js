@@ -52,8 +52,8 @@
                         { 
                             "to":"e3fPgeN85g-2eBqxvOQ_IH:APA91bFGWXviLzWzCZkuOgjIB82yBC_OZ-xCmFN5sDHIOPEy7r4n8OJXXMIDne1xhfGb0xcY8LX7-j89zYi6vDKBoShF2pZg34iYeQba9TUAEBOF8roLPQLkUgguAADdWA0E2N9pqQPk",
                             "notification":{
-                              "title":"Prueba desde POSTMAN",
-                              "body":"${JSON.stringify(decodedArgs)}"
+                              "title":"${decodedArgs.title}",
+                              "body":"${decodedArgs.message}"
                             },
                             "data":{
                               "title":"Titulo datos",
