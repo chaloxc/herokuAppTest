@@ -53,7 +53,7 @@
                         { 
                             "to":"${decodedArgs.token}",
                             "notification":{
-                              "title":"${decodedArgs.title + decodedArgs.nombre}",
+                              "title":"${decodedArgs.title}",
                               "body":"${decodedArgs.message}"
                             },
                             "data":{
