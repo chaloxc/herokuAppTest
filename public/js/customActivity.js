@@ -86,9 +86,10 @@ define([
         let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
         let allowedData = 'Datos dinamicos disponibles: [';
-        for(const key in inArguments) {
+        for(const key in inArguments[0]) {
             allowedData += "$" + key + ", ";
         }
+        allowedData = allowedData.slice(0,-2) + "]";
 
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
