@@ -43,6 +43,19 @@
                 console.log('Token', decodedArgs.token);
                 console.log('Ttitle', decodedArgs.title);
                 console.log('Message', decodedArgs.message);
+                
+                let customTitle = decodedArgs.title;
+                let customMessage = decodedArgs.title;
+
+                for (const key in decodedArgs) {
+                    if (key!="title"&&key!="message") {
+                        let keyToReplace = new RegExp('%'+key+'%',g);
+                        customTitle = customTitle.replace(keyToReplace, decodedArgs[key]);
+                        customMessage = customMessage.replace(keyToReplace, decodedArgs[key]);
+                    }
+                    
+                }
+
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -53,8 +66,8 @@
                         { 
                             "to":"${decodedArgs.token}",
                             "notification":{
-                              "title":"${decodedArgs.title}",
-                              "body":"${decodedArgs.message}"
+                              "title":"${customTitle}",
+                              "body":"${customMessage}"
                             },
                             "data":{
                               "title":"Titulo datos",
