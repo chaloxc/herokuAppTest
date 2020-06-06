@@ -48,7 +48,7 @@
                 let customMessage = decodedArgs.message;
 
                 for (const key in decodedArgs) {
-                    if (key!="title" && key!="message" ) {
+                    if (key!="title" && key!="message") {
                         let keyToReplace = new RegExp('$'+key,"g");
                         console.log('key and regex ',key,keyToReplace);
                         console.log('key value', decodedArgs[key]);

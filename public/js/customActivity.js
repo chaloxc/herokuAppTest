@@ -86,8 +86,10 @@ define([
         let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
         let allowedData = 'Datos dinamicos disponibles: [';
-        for(const key in inArguments[0]) {
-            allowedData += "$" + key + ", ";
+        for (const key in inArguments[0]) {
+            if (key!="tilte" && key!="message") {
+                allowedData += "$" + key + ", ";
+            }
         }
         allowedData = allowedData.slice(0,-2) + "]";
 
