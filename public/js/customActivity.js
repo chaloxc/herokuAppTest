@@ -85,10 +85,14 @@ define([
         
         let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
-        
+        let allowedData = 'Datos dinamicos disponibles: [';
+        for(const key in inArguments) {
+            allowedData += "$" + key + ", ";
+        }
+
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
-        
+        document.getElementById('allowVariables').innerHTML = allowedData;
         
         $.each(inArguments, function (index, inArgument) {
             $.each(inArgument, function (key, val) {
