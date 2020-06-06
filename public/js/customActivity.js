@@ -88,7 +88,7 @@ define([
         let allowedData = 'Datos dinamicos disponibles: [';
         for (const key in inArguments[0]) {
             if (key!="tilte" && key!="message") {
-                allowedData += "$" + key + ", ";
+                allowedData += "%" + key + "%, ";
             }
         }
         allowedData = allowedData.slice(0,-2) + "]";
