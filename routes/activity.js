@@ -48,7 +48,7 @@
 
                 for (const key in decodedArgs) {
                     if (key != "title" && key != "message" && key != "token" && key != "key") {
-                        let keyToReplace = new RegExp('%'+key+'%',"g");
+                        let keyToReplace = new RegExp('%%'+key+'%%',"g");
                         customTitle = customTitle.replace(keyToReplace, decodedArgs[key]);
                         customMessage = customMessage.replace(keyToReplace, decodedArgs[key]);
                     };
