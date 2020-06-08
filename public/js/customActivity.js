@@ -42,10 +42,9 @@ define([
                     console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
                 
                }
-               dataObject +=  `}`;    
-               console.log(dataObject);
-               //dataObject = JSON.parse(dataObject);
             }
+            dataObject +=  `}`;    
+            dataObject = JSON.parse(dataObject);
             
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
