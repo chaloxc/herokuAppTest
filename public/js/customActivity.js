@@ -64,7 +64,7 @@ define([
         let getVariablesFrom = dataObject?dataObject:inArguments[0];
         
         for (const key in getVariablesFrom) {
-            if (key != "tilte" && key != "message") {
+            if (key != "title" && key != "message" && key != "token") {
                 allowedData += "%" + key + "%, ";
             }
         }
