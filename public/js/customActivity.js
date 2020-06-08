@@ -131,6 +131,16 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
+        let args = [{
+            "title": title,
+            "message": message,
+            "nombre": "{{" + nombre + "}}",
+            "email": "{{" + email + "}}",
+            "apellido": "{{" + apellido + "}}",
+            "token": "{{" + token + "}}",
+            "key": "{{" + key + "}}"
+        }];          
+        console.log('args',args[0]);
         payload['arguments'].execute.inArguments = [{
             "title": title,
             "message": message,
