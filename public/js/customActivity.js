@@ -9,7 +9,7 @@ define([
     var payload = {};    
     var schemas = [];  
     let variableActivity = [];
-    let dataObject = `{ "title":"", "messagge":""`;
+    let dataObject = `{ "title":"", "message":""`;
     let nombre = "";
     let apellido = "";
     let email = "";
