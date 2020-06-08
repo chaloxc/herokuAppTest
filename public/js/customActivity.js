@@ -46,7 +46,7 @@ define([
             }
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            payload['arguments'].execute.inArguments = [{dataObject}];
+            payload['arguments'].execute.inArguments = [dataObject];
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
