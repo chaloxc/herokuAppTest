@@ -58,7 +58,7 @@ define([
                 internalPayl['arguments'].execute.inArguments.length > 0
             );
             if (hasInArguments) {
-                //internalPayl['arguments'].execute.inArguments[0] = dataObject;
+                console.log(internalPayl['arguments'].execute.inArguments[0]);
             };
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
@@ -130,6 +130,7 @@ define([
         console.log("Dinamic dataobject", dataObject);
         let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
+        console.log('payload', payload['arguments'].execute.inArguments);
         payload['arguments'].execute.inArguments = args;
         /*[{
             "title": title,
