@@ -88,7 +88,8 @@ define([
         let title = inArguments[0].title?inArguments[0].title:"";
         let message = inArguments[0].message?inArguments[0].message:"";
         let allowedData = 'Datos dinamicos disponibles: [';
-        for (const key in inArguments[0]) {
+        let getVariablesFrom = dataObject?dataObject:inArguments[0];
+        for (const key in getVariablesFrom) {
             if (key!="tilte" && key!="message") {
                 allowedData += "%" + key + "%, ";
             }
@@ -127,32 +128,10 @@ define([
     function save() {
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
-        console.log("Dinamic dataobject", dataObject);
         let args = [{ ...dataObject, title, message }];          
-        console.log('args',args[0]);
-        console.log('payload', payload['arguments'].execute.inArguments)
         payload['arguments'].execute.inArguments = args;
-        /*[{
-            "title": title,
-            "message": message,
-            "nombre": "{{" + nombre + "}}",
-            "email": "{{" + email + "}}",
-            "apellido": "{{" + apellido + "}}",
-            "token": "{{" + token + "}}",
-            "key": "{{" + key + "}}"
-        }];*/
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
-        let ARGUMENTOS = {
-            title,
-            message,
-            nombre: "{{" + nombre + "}}",
-            email: "{{" + email + "}}",
-            apellido: "{{" + apellido + "}}",
-            token: "{{" + token + "}}",
-            key: "{{" + key + "}}"
-        };          
-        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
