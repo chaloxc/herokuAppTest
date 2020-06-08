@@ -46,7 +46,7 @@ define([
             }
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            let internalPayl = {};
+            let internalPayl = data;
             if (data) {
                 internalPayl = data;
             }
@@ -58,7 +58,7 @@ define([
                 internalPayl['arguments'].execute.inArguments.length > 0
             );
             if (hasInArguments) {
-                console.log(internalPayl['arguments'].execute.inArguments[0]);
+                console.log('argumentos al renderizar',internalPayl['arguments'].execute.inArguments[0]);
             };
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
@@ -128,11 +128,11 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
-
         let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
-        //console.log('payload', payload['arguments'].execute.inArguments);
-        payload['arguments'].execute.inArguments =[{
+        console.log('payload', payload['arguments'].execute.inArguments)
+        payload['arguments'].execute.inArguments = args;
+        /*[{
             "title": title,
             "message": message,
             "nombre": "{{" + nombre + "}}",
@@ -140,9 +140,19 @@ define([
             "apellido": "{{" + apellido + "}}",
             "token": "{{" + token + "}}",
             "key": "{{" + key + "}}"
-        }];
+        }];*/
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
+        let ARGUMENTOS = {
+            title,
+            message,
+            nombre: "{{" + nombre + "}}",
+            email: "{{" + email + "}}",
+            apellido: "{{" + apellido + "}}",
+            token: "{{" + token + "}}",
+            key: "{{" + key + "}}"
+        };          
+        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
