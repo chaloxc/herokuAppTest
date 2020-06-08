@@ -43,7 +43,8 @@ define([
                 
                }
                dataObject +=  `}`;    
-               dataObject = JSON.parse(dataObject);
+               console.log(dataObject);
+               //dataObject = JSON.parse(dataObject);
             }
             
             // este caso particular trabaja con una data extension que tiene los siguientes campos
