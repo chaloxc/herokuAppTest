@@ -3,6 +3,7 @@
 
 <head>
     <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,22 +42,32 @@
 
 <body>
     <div id="step1" class="step">
-        
-        
-        <table title="Titulo" style="width:90%;" align="center">
-            <label style="margin-bottom:10;">Titulo</label>
-            <input type="text" class="slds-input" id="title" style="width: 100%;" placeholder="Ingrese un titulo">
-        </table>
-        
-        <table title="Body" style="width:90%;" align="center">
-            <label style="margin-bottom:10;">Body</label>
-            <textarea id="textarea" rows="10" style="width:100%;" class="slds-textarea" placeholder="Ingrese un body"></textarea>
-        </table>
+        <form>
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input type="text" class="form-control" id="title" placeholder="Ingrese un titulo">
+            </div>
+            <div class="form-group">
+                <label for="textarea">Mensaje(body)</label>
+                <textarea class="form-control" id="textarea" rows="3" placeholder="Ingrese un mensaje"></textarea>
+            </div>
+        </form>
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Variables dinámicas!</h4>
+            <p> Hay variables dinámicas disponibles, para poder usarlas y reemplazadas automaticamente por sus valores debés ponerlas EXACTAMENTE como se muestran abajo.</p>
+            <hr>
+            <p class="mb-0" id="allowVariables"><b> Oops!, parece que no hay variables disponibles. </b></p>
+        </div>
+        <!-- 
+            <table title="Body" style="width:90%;" align="center">
+                <label style="margin-bottom:10;">Body</label>
+                <textarea id="textarea" rows="10" style="width:100%;" class="slds-textarea" placeholder="Ingrese un body"></textarea>
+            </table> 
 
-        <table title="Variables" style="width:90%;" align="center">
-            <label id="allowVariables" style="margin-top:20;">a</label>
-        </table>
-        
+            <table title="Variables" style="width:90%;" align="center">
+                <label id="allowVariables" style="margin-top:20;"></label>
+            </table>
+        -->
 
     </div>
 </body>
