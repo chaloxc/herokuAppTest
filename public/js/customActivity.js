@@ -128,9 +128,10 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
+
         let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
-        console.log('payload', payload['arguments'].execute.inArguments);
+        //console.log('payload', payload['arguments'].execute.inArguments);
         payload['arguments'].execute.inArguments = args;
         /*[{
             "title": title,
