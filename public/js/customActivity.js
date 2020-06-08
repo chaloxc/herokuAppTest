@@ -95,7 +95,7 @@ define([
     function onGetTokens(tokens) {
         console.log(tokens);
         authTokens = tokens;
-    }
+    };
 
     function onGetEndpoints(endpoints) {
         console.log(endpoints);
@@ -108,6 +108,6 @@ define([
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
-    }
+    };
 
 });
