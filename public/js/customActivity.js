@@ -36,7 +36,7 @@ define([
             for(var i = 0; i < data['schema'].length; i++) {
                 var split = data['schema'][i].key.split('.');
                 let key = data['schema'][i].key.split('.')[2]; 
-                dataObject +=  `, "${key}":""`;   
+                dataObject +=  `, "${key}":"{{ ${data['schema'][i].key} }}"`;   
                 mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
                 if(data['schema'][i].type === 'token'){
                     console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
@@ -131,6 +131,7 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
+        
         let args = [{
             "title": title,
             "message": message,
