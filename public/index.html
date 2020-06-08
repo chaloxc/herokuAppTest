@@ -52,11 +52,15 @@
                 <textarea class="form-control" id="textarea" rows="3" placeholder="Ingrese un mensaje"></textarea>
             </div>
         </form>
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Variables dinámicas!</h4>
-            <p> Hay variables dinámicas disponibles, para poder usarlas y reemplazadas automaticamente por sus valores debés ponerlas EXACTAMENTE como se muestran abajo.</p>
+
+        <div class="alert alert-danger" role="alert" id="error" style="display:none;">
+            <p><b>Los datos de entrada no están preparados para esta funcionalidad, por lo tanto no se ejecutarán las notificaciones.</b></p>
+        </div>
+
+        <div class="alert alert-info" role="alert" id="variablesInfo">
+            <p>Para poder usar las <b>variables dinámicas</b> debés ponerlas EXACTAMENTE como se muestran a continuación en la lista y entre medio de % (%miVariable%).</p>
             <hr>
-            <p class="mb-0" id="allowVariables"><b> Oops!, parece que no hay variables disponibles. </b></p>
+            <b><p class="mb-0" id="allowVariables">Oops!, parece que no hay variables disponibles.</p><b>
         </div>
         <!-- 
             <table title="Body" style="width:90%;" align="center">

@@ -60,19 +60,31 @@ define([
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
         let title       = inArguments[0].title?inArguments[0].title:"";
         let message     = inArguments[0].message?inArguments[0].message:"";
-        let allowedData = 'Datos dinamicos disponibles: [';
+        let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject?dataObject:inArguments[0];
-        
+        let tokenExists = false;
         for (const key in getVariablesFrom) {
+            if (key === "token") {
+                document.getElementById("variablesInfo").style.display = 'block';
+                tokenExists = true;
+            }
             if (key != "title" && key != "message" && key != "token") {
-                allowedData += "%" + key + "%, ";
+                allowedData += key + ", ";
             }
         }
-        allowedData = allowedData.slice(0,-2) + "]";
-
+        allowedData = allowedData.slice(0,-2) + ".";
+        
+        if (!tokenExists) {
+            document.getElementById("error").style.display = 'block';
+        }
+        
+        if(Object.key(getVariablesFrom).length>3 && tokenExists){
+            document.getElementById('allowVariables').innerHTML = allowedData;
+        }
+        
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
-        document.getElementById('allowVariables').innerHTML = allowedData;
+        
         
         connection.trigger('updateButton', {
             button: 'next',
