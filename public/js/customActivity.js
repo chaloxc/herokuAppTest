@@ -17,17 +17,15 @@ define([
     connection.on('clickedNext', save);
    
     function onRender() {
-        // JB will respond the first time 'ready' is called with 'initActivity'
         connection.trigger('requestSchema');
         connection.on('requestedSchema', function (data) {
             schemas = data['schema'];
-            console.log('Data',data);
-            console.log('Schema',schemas);
+
             for(var i = 0; i < schemas.length; i++) {
                 let key     = schemas[i].key.split('.')[2]; 
                 let value   = schemas[i].key;
                 dataObject += `, "${key}":"{{${value}}}"`;   
-            }
+            };
 
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
@@ -41,7 +39,8 @@ define([
     function initialize(data) {
         if (data) {
             payload = data;
-        }
+        };
+
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -55,6 +54,7 @@ define([
         let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject ? dataObject : inArguments[0];
         let tokenExists = false;
+        
         for (const key in getVariablesFrom) {
             if (key === "token") {
                 document.getElementById("variablesInfo").style.display = 'block';
@@ -63,7 +63,8 @@ define([
             if (key != "title" && key != "message" && key != "token" && key != "key") {
                 allowedData += key + ", ";
             }
-        }
+        };
+
         allowedData = allowedData.slice(0,-2) + ".";
         
         if (!tokenExists) {
@@ -74,11 +75,11 @@ define([
             document.getElementById("title").readOnly = true;
             document.getElementById("textarea").readOnly = true;
             return;
-        }
+        };
         
         if (Object.keys(getVariablesFrom).length > 3) {
             document.getElementById("allowVariables").innerHTML = allowedData;
-        }
+        };
 
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
