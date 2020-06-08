@@ -79,7 +79,8 @@ define([
             document.getElementById("variablesInfo").style.display = 'none';
         }
         
-        if(Object.keys(getVariablesFrom).length>3 && tokenExists){
+        if(Object.keys(getVariablesFrom).length>3){
+            console.log('entre al if');
             document.getElementById('allowVariables').value = allowedData;
         }
 
