@@ -58,7 +58,7 @@ define([
                 internalPayl['arguments'].execute.inArguments.length > 0
             );
             if (hasInArguments) {
-                internalPayl['arguments'].execute.inArguments[0] = dataObject;
+                //internalPayl['arguments'].execute.inArguments[0] = dataObject;
             };
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
@@ -128,9 +128,9 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
-        let args = { ...dataObject, title, message };          
-        console.log('args',args);
-        payload['arguments'].execute.inArguments[0] = args;
+        let args = [{ ...dataObject, title, message }];          
+        console.log('args',args[0]);
+        payload['arguments'].execute.inArguments = args;
         /*[{
             "title": title,
             "message": message,
@@ -142,6 +142,16 @@ define([
         }];*/
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
+        let ARGUMENTOS = {
+            title,
+            message,
+            nombre: "{{" + nombre + "}}",
+            email: "{{" + email + "}}",
+            apellido: "{{" + apellido + "}}",
+            token: "{{" + token + "}}",
+            key: "{{" + key + "}}"
+        };          
+        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
