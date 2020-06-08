@@ -77,11 +77,14 @@ define([
         if (!tokenExists) {
             document.getElementById("error").style.display = 'block';
             document.getElementById("variablesInfo").style.display = 'none';
+            document.getElementById("title").value = "";
+            document.getElementById("textarea").value = "";
+            document.getElementById("title").readOnly = true;
+            document.getElementById("textarea").readOnly = true;
+            return;
         }
         
-        if(Object.keys(getVariablesFrom).length>3){
-            console.log('entre al if');
-            console.log('allowedData',allowedData);
+        if (Object.keys(getVariablesFrom).length > 3) {
             document.getElementById("allowVariables").innerHTML = allowedData;
         }
 
