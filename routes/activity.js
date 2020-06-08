@@ -36,31 +36,24 @@
                 console.error(err);
                 return res.status(401).end();
             }
-            // decoded contiene los parametros que definimos en el config.json y se completan con nuestra data extension
+            
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                console.log('Decoded arguments', decodedArgs);
-                console.log('Token', decodedArgs.token);
-                console.log('Ttitle', decodedArgs.title);
-                console.log('Message', decodedArgs.message);
-                
                 let customTitle = decodedArgs.title;
                 let customMessage = decodedArgs.message;
 
-                for (const key in decodedArgs) {
-                    if (key!="title" && key!="message" ) {
-                        let keyToReplace = new RegExp('%'+key+'%',"g");
-                        console.log('key and regex ',key,keyToReplace);
-                        console.log('key value', decodedArgs[key]);
+                if(!decodedArgs.token) {
+                    return res.status(200).end();
+                };
 
+                for (const key in decodedArgs) {
+                    if (key != "title" && key != "message" && key != "token" && key != "key") {
+                        let keyToReplace = new RegExp('%'+key+'%',"g");
                         customTitle = customTitle.replace(keyToReplace, decodedArgs[key]);
                         customMessage = customMessage.replace(keyToReplace, decodedArgs[key]);
-                    }
-                    
-                }
-                console.log(customTitle);
-                console.log(customMessage);
-
+                    };
+                };
+                
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -88,7 +81,7 @@
             } else {
                 console.error('inArguments invalid.');
                 return res.status(400).end();
-            }
+            };
             
         });
     };
