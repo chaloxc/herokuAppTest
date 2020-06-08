@@ -21,7 +21,8 @@ define([
         connection.trigger('requestSchema');
         connection.on('requestedSchema', function (data) {
             schemas = data['schema'];
-            
+            console.log('Data',data);
+            console.log('Schema',schemas);
             for(var i = 0; i < schemas.length; i++) {
                 let key     = schemas[i].key.split('.')[2]; 
                 let value   = schemas[i].key;
