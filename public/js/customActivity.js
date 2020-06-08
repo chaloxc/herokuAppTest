@@ -36,7 +36,8 @@ define([
             for(var i = 0; i < data['schema'].length; i++) {
                 var split = data['schema'][i].key.split('.');
                 let key = data['schema'][i].key.split('.')[2]; 
-                dataObject +=  `, "${key}":"{{ ${data['schema'][i].key} }}"`;   
+                let value = data['schema'][i].key;
+                dataObject +=  `, "${key}":"{{${value}}}"`;   
                 mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
                 if(data['schema'][i].type === 'token'){
                     console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
@@ -45,27 +46,10 @@ define([
             }
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            
+            payload['arguments'].execute.inArguments = [{dataObject}];
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
-            console.log(mapLabelValue);
-            if(mapLabelValue.get("nombre")) {
-                nombre = mapLabelValue.get("nombre");
-            }
-            if(mapLabelValue.get("apellido")) {
-                apellido = mapLabelValue.get("apellido");
-            }
-            if(mapLabelValue.get("email")) {
-                email = mapLabelValue.get("email");
-            }
-            if(mapLabelValue.get("token")) {
-                token = mapLabelValue.get("token");
-            }
-            if(mapLabelValue.get("key")) {
-                key = mapLabelValue.get("key");
-            }
-
             connection.trigger('ready');
             connection.trigger('requestTokens');
             connection.trigger('requestEndpoints');            
@@ -131,16 +115,7 @@ define([
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
         console.log("Dinamic dataobject", dataObject);
-        
-        let args = [{
-            "title": title,
-            "message": message,
-            "nombre": "{{" + nombre + "}}",
-            "email": "{{" + email + "}}",
-            "apellido": "{{" + apellido + "}}",
-            "token": "{{" + token + "}}",
-            "key": "{{" + key + "}}"
-        }];          
+        let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
         payload['arguments'].execute.inArguments = [{
             "title": title,
