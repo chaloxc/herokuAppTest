@@ -9,10 +9,7 @@ define([
     var payload = {};    
     var schemas = [];  
     let variableActivity = [];
-    let dataObject = {
-        title: "",
-        message: ""
-    };
+    let dataObject = `{ "title":"", "messagge":""`;
     let nombre = "";
     let apellido = "";
     let email = "";
@@ -38,13 +35,15 @@ define([
             console.log(schemas);
             for(var i = 0; i < data['schema'].length; i++) {
                 var split = data['schema'][i].key.split('.');
-                let key = data['schema'][i].key.split('.')[2];                
+                let key = data['schema'][i].key.split('.')[2]; 
+                dataObject +=  `, "${key}":""`;   
                 mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
-                dataObject = { ...dataObject, key : ""  }
                 if(data['schema'][i].type === 'token'){
                     console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
                 
-               }       
+               }
+               dataObject +=  `}`;    
+               dataObject = JSON.parse(dataObject);
             }
             
             // este caso particular trabaja con una data extension que tiene los siguientes campos
