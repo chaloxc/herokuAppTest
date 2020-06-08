@@ -46,7 +46,26 @@ define([
             }
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            //payload['arguments'].execute.inArguments = [dataObject];
+            let internalPayl = {};
+            if (data) {
+                internalPayl = data;
+            }
+            
+            var hasInArguments = Boolean(
+                payload['arguments'] &&
+                payload['arguments'].execute &&
+                payload['arguments'].execute.inArguments &&
+                payload['arguments'].execute.inArguments.length > 0
+            );
+            var hasInArguments = Boolean(
+                internalPayl['arguments'] &&
+                internalPayl['arguments'].execute &&
+                internalPayl['arguments'].execute.inArguments &&
+                internalPayl['arguments'].execute.inArguments.length > 0
+            );
+            if (hasInArguments) {
+                internalPayl['arguments'].execute.inArguments = [dataObject];
+            };
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
