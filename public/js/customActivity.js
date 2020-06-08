@@ -132,8 +132,7 @@ define([
         let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
         //console.log('payload', payload['arguments'].execute.inArguments);
-        payload['arguments'].execute.inArguments = args;
-        /*[{
+        payload['arguments'].execute.inArguments =[{
             "title": title,
             "message": message,
             "nombre": "{{" + nombre + "}}",
@@ -141,19 +140,9 @@ define([
             "apellido": "{{" + apellido + "}}",
             "token": "{{" + token + "}}",
             "key": "{{" + key + "}}"
-        }];*/
+        }];
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
-        let ARGUMENTOS = {
-            title,
-            message,
-            nombre: "{{" + nombre + "}}",
-            email: "{{" + email + "}}",
-            apellido: "{{" + apellido + "}}",
-            token: "{{" + token + "}}",
-            key: "{{" + key + "}}"
-        };          
-        console.log("*** ARGUMENTS *** ",ARGUMENTOS);
     }
 
 });
