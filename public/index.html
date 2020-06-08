@@ -1,79 +1,55 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css" />
-    <script type="text/javascript" src="js/require.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css" />
+        <script type="text/javascript" src="js/require.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-    <script type="text/javascript">
-        (function () {
-            var config = {
-                baseUrl: 'js'
-            };
+        <script type="text/javascript">
+            (function () {
+                var config = {
+                    baseUrl: 'js'
+                };
 
-            var dependencies = [
-                'customActivity'
-            ];
-            $('.pagination').attr('action', function (_, action) {
-                return action.replace('https', 'http');
-            });
-            require(config, dependencies);
-        })();
+                var dependencies = [
+                    'customActivity'
+                ];
+                $('.pagination').attr('action', function (_, action) {
+                    return action.replace('https', 'http');
+                });
+                require(config, dependencies);
+            })();
+        </script>
+    </head>
 
-
-        /*function save() {
-            let text = document.getElementById("textarea").value;
-            let title = document.getElementById("title").value;
-            payload['arguments'].execute.inArguments = [{
-                "title": title,
-                "message": text
-            }];    
-        };*/
-
-    </script>
-</head>
-
-<body>
-    <div id="step1" class="step">
-        <form>
-            <div class="form-group">
-                <label for="titulo">Titulo</label>
-                <input type="text" class="form-control" id="title" placeholder="Ingrese un titulo">
+    <body>
+        <div id="step1" class="step">
+            <form>
+                <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="title" placeholder="Ingrese un titulo">
+                </div>
+                <div class="form-group">
+                    <label for="textarea">Mensaje(body)</label>
+                    <textarea class="form-control" id="textarea" rows="3" placeholder="Ingrese un mensaje"></textarea>
+                </div>
+            </form>
+            <div class="alert alert-danger" role="alert" id="error" style="display:none;">
+                <p><b>Los datos de entrada no están preparados para esta funcionalidad, por lo tanto no se ejecutarán las notificaciones.</b></p>
             </div>
-            <div class="form-group">
-                <label for="textarea">Mensaje(body)</label>
-                <textarea class="form-control" id="textarea" rows="3" placeholder="Ingrese un mensaje"></textarea>
+            <div class="alert alert-info" role="alert" id="variablesInfo">
+                <p>Para poder usar las <b>variables dinámicas</b> debés ponerlas EXACTAMENTE como se muestran a continuación en la lista y entre medio de % (%miVariable%).</p>
+                <hr style="margin-top: 10px;margin-bottom: 10px;">
+                <b><label class="mb-0" id="allowVariables">Oops!, parece que no hay variables disponibles.</label><b>
             </div>
-        </form>
-
-        <div class="alert alert-danger" role="alert" id="error" style="display:none;">
-            <p><b>Los datos de entrada no están preparados para esta funcionalidad, por lo tanto no se ejecutarán las notificaciones.</b></p>
         </div>
-
-        <div class="alert alert-info" role="alert" id="variablesInfo">
-            <p>Para poder usar las <b>variables dinámicas</b> debés ponerlas EXACTAMENTE como se muestran a continuación en la lista y entre medio de % (%miVariable%).</p>
-            <hr style="margin-top: 10px;margin-bottom: 10px;">
-            <b><label class="mb-0" id="allowVariables">Oops!, parece que no hay variables disponibles.</label><b>
-        </div>
-        <!-- 
-            <table title="Body" style="width:90%;" align="center">
-                <label style="margin-bottom:10;">Body</label>
-                <textarea id="textarea" rows="10" style="width:100%;" class="slds-textarea" placeholder="Ingrese un body"></textarea>
-            </table> 
-
-            <table title="Variables" style="width:90%;" align="center">
-                <label id="allowVariables" style="margin-top:20;"></label>
-            </table>
-        -->
-
-    </div>
-</body>
+    </body>
 
 </html>
