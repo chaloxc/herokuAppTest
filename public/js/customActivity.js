@@ -46,7 +46,7 @@ define([
             }
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            payload['arguments'].execute.inArguments = [dataObject];
+            //payload['arguments'].execute.inArguments = [dataObject];
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
@@ -117,7 +117,8 @@ define([
         console.log("Dinamic dataobject", dataObject);
         let args = [{ ...dataObject, title, message }];          
         console.log('args',args[0]);
-        payload['arguments'].execute.inArguments = [{
+        payload['arguments'].execute.inArguments = args;
+        /*[{
             "title": title,
             "message": message,
             "nombre": "{{" + nombre + "}}",
@@ -125,7 +126,7 @@ define([
             "apellido": "{{" + apellido + "}}",
             "token": "{{" + token + "}}",
             "key": "{{" + key + "}}"
-        }];          
+        }];*/
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
         let ARGUMENTOS = {

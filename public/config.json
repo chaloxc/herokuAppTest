@@ -18,12 +18,7 @@
            "inArguments":[
 				{
               "title": "",
-              "message": "",
-              "nombre": "",
-              "email": "",
-              "apellido": "",
-              "token": "",
-              "key": ""
+              "message": ""
                 }									
 			],
           "outArguments": [],
