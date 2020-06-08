@@ -76,12 +76,13 @@ define([
         
         if (!tokenExists) {
             document.getElementById("error").style.display = 'block';
+            document.getElementById("variablesInfo").style.display = 'none';
         }
         
         if(Object.key(getVariablesFrom).length>3 && tokenExists){
-            document.getElementById('allowVariables').innerHTML = allowedData;
+            document.getElementById('allowVariables').value = allowedData;
         }
-        
+
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         
