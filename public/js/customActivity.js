@@ -81,7 +81,8 @@ define([
         
         if(Object.keys(getVariablesFrom).length>3){
             console.log('entre al if');
-            document.getElementById('allowVariables').value = allowedData;
+            console.log('allowedData',allowedData);
+            document.getElementById("allowVariables").value = allowedData;
         }
 
         document.getElementById("title").value = title;
