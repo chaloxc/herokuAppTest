@@ -9,6 +9,10 @@ define([
     var payload = {};    
     var schemas = [];  
     let variableActivity = [];
+    let dataObject = {
+        title: "",
+        message: ""
+    };
     let nombre = "";
     let apellido = "";
     let email = "";
@@ -33,8 +37,10 @@ define([
             schemas = data['schema'];
             console.log(schemas);
             for(var i = 0; i < data['schema'].length; i++) {
-                var split = data['schema'][i].key.split('.');                
+                var split = data['schema'][i].key.split('.');
+                let key = data['schema'][i].key.split('.')[2];                
                 mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
+                dataObject = { ...dataObject, key : ""  }
                 if(data['schema'][i].type === 'token'){
                     console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
                 
@@ -125,6 +131,7 @@ define([
     function save() {
         let message = document.getElementById("textarea").value?document.getElementById("textarea").value:"";
         let title = document.getElementById("title").value?document.getElementById("title").value:"";
+        console.log("Dinamic dataobject", dataObject);
         payload['arguments'].execute.inArguments = [{
             "title": title,
             "message": message,
