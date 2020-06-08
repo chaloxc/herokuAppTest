@@ -52,12 +52,6 @@ define([
             }
             
             var hasInArguments = Boolean(
-                payload['arguments'] &&
-                payload['arguments'].execute &&
-                payload['arguments'].execute.inArguments &&
-                payload['arguments'].execute.inArguments.length > 0
-            );
-            var hasInArguments = Boolean(
                 internalPayl['arguments'] &&
                 internalPayl['arguments'].execute &&
                 internalPayl['arguments'].execute.inArguments &&
@@ -69,6 +63,7 @@ define([
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
+            connection.trigger('updateActivity', internalPayl); 
             connection.trigger('ready');
             connection.trigger('requestTokens');
             connection.trigger('requestEndpoints');            
