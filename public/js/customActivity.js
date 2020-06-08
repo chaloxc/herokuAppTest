@@ -8,16 +8,9 @@ define([
     var authTokens = {};
     var payload = {};    
     var schemas = [];  
-    let variableActivity = [];
     let dataObject = `{ "title":"", "message":""`;
-    let nombre = "";
-    let apellido = "";
-    let email = "";
-    let token = "";
-    let key = "";
-    let mapLabelValue = new Map();
-    $(window).ready(onRender);
     
+    $(window).ready(onRender);
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
@@ -32,34 +25,15 @@ define([
         connection.trigger('requestSchema');
         connection.on('requestedSchema', function (data) {
             schemas = data['schema'];
-            console.log(schemas);
+            
             for(var i = 0; i < data['schema'].length; i++) {
-                var split = data['schema'][i].key.split('.');
                 let key = data['schema'][i].key.split('.')[2]; 
                 let value = data['schema'][i].key;
                 dataObject +=  `, "${key}":"{{${value}}}"`;   
-                mapLabelValue.set(data['schema'][i].key.split('.')[2],data['schema'][i].key);
-                if(data['schema'][i].type === 'token'){
-                    console.log("TOKEN ",split[0] + '.' +  split[1] +'.\"' + split[2] + '\"');
-                
-               }
             }
+
             dataObject +=  `}`;    
             dataObject = JSON.parse(dataObject);
-            let internalPayl = data;
-            if (data) {
-                internalPayl = data;
-            }
-            
-            var hasInArguments = Boolean(
-                internalPayl['arguments'] &&
-                internalPayl['arguments'].execute &&
-                internalPayl['arguments'].execute.inArguments &&
-                internalPayl['arguments'].execute.inArguments.length > 0
-            );
-            if (hasInArguments) {
-                console.log('argumentos al renderizar',internalPayl['arguments'].execute.inArguments[0]);
-            };
             // este caso particular trabaja con una data extension que tiene los siguientes campos
             // asi que los sacamos del mapa y los asignamos a las variables para agregarlos luego
             // cuando guardemos los datos a inArguments(que se va a procesar en el execute).
@@ -84,13 +58,13 @@ define([
         );
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
-        
-        let title = inArguments[0].title?inArguments[0].title:"";
-        let message = inArguments[0].message?inArguments[0].message:"";
+        let title       = inArguments[0].title?inArguments[0].title:"";
+        let message     = inArguments[0].message?inArguments[0].message:"";
         let allowedData = 'Datos dinamicos disponibles: [';
         let getVariablesFrom = dataObject?dataObject:inArguments[0];
+        
         for (const key in getVariablesFrom) {
-            if (key!="tilte" && key!="message") {
+            if (key != "tilte" && key != "message") {
                 allowedData += "%" + key + "%, ";
             }
         }
@@ -100,12 +74,6 @@ define([
         document.getElementById("textarea").value = message;
         document.getElementById('allowVariables').innerHTML = allowedData;
         
-        $.each(inArguments, function (index, inArgument) {
-            $.each(inArgument, function (key, val) {
-               console.log(inArguments); 
-            });
-        });
-
         connection.trigger('updateButton', {
             button: 'next',
             text: 'done',
