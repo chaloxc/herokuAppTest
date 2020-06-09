@@ -39,21 +39,21 @@
             
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
-                let customTitle = decodedArgs.title;
-                let customMessage = decodedArgs.message;
+                let customTitle = decodedArgs.WPNtitle;
+                let customMessage = decodedArgs.WPNmessage;
 
                 if(!decodedArgs.token) {
                     return res.status(200).end();
                 };
 
                 for (const key in decodedArgs) {
-                    if (key != "title" && key != "message" && key != "token" && key != "key") {
+                    if (key != "WPNtitle" && key != "WPNmessage" && key != "token" && key != "key") { // deberia ser WPNtoken desde el data extension
                         let keyToReplace = new RegExp('%%'+key+'%%',"g");
                         customTitle = customTitle.replace(keyToReplace, decodedArgs[key]);
                         customMessage = customMessage.replace(keyToReplace, decodedArgs[key]);
                     };
                 };
-                
+                // "image": "url-to-image"
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -65,7 +65,8 @@
                             "to":"${decodedArgs.token}",
                             "notification":{
                               "title":"${customTitle}",
-                              "body":"${customMessage}"
+                              "body":"${customMessage}",
+                              "image": "https://i.kym-cdn.com/entries/icons/original/000/001/987/FuckYEA.jpg"
                             },
                             "data":{
                               "title":"Titulo datos",

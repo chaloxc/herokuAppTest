@@ -8,7 +8,7 @@ define([
     var authTokens = {};
     var payload = {};    
     var schemas = [];  
-    let dataObject = `{ "title":"", "message":""`;
+    let dataObject = `{ "WPNtitle":"", "WPNmessage":""`;
     
     $(window).ready(onRender);
     connection.on('initActivity', initialize);
@@ -49,8 +49,8 @@ define([
         );
 
         let inArguments = hasInArguments ? payload['arguments'].execute.inArguments : [{}];
-        let title       = inArguments[0].title?inArguments[0].title:"";
-        let message     = inArguments[0].message?inArguments[0].message:"";
+        let title       = inArguments[0].WPNtitle?inArguments[0].WPNtitle:"";
+        let message     = inArguments[0].WPNmessage?inArguments[0].WPNmessage:"";
         let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject ? dataObject : inArguments[0];
         let tokenExists = false;
@@ -60,7 +60,7 @@ define([
                 document.getElementById("variablesInfo").style.display = 'block';
                 tokenExists = true;
             }
-            if (key != "title" && key != "message" && key != "token" && key != "key") {
+            if (key != "WPNtitle" && key != "WPNmessage" && key != "token" && key != "key") { // token deberia ser WPNtoken desde la data extension
                 allowedData += key + ", ";
             }
         };
@@ -102,9 +102,9 @@ define([
     };
 
     function save() {
-        let message = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
-        let title = document.getElementById("title").value ? document.getElementById("title").value : "";
-        let args = [{ ...dataObject, title, message }];          
+        let WPNmessage = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
+        let WPNtitle = document.getElementById("title").value ? document.getElementById("title").value : "";
+        let args = [{ ...dataObject, WPNtitle, WPNmessage }];          
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  

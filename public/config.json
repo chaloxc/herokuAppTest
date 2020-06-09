@@ -17,8 +17,8 @@
         "execute": {       
            "inArguments":[
 				{
-              "title": "",
-              "message": ""
+              "WPNtitle": "",
+              "WPNmessage": ""
                 }									
 			],
           "outArguments": [],
