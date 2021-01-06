@@ -89,7 +89,7 @@ define([
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         let urlInput = document.getElementById("urlRedirect");   
-        urlInput.value = urlRedirect;
+        urlInput.value = urlRedirect ? urlRedirect : "";
         if(document.getElementById("redirect").checked){     
             urlInputstyle.display = "block";
         } else {
