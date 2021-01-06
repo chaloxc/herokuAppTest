@@ -27,9 +27,8 @@
                 require(config, dependencies);
             })();
             let checkChange = () => {
-                alert("aca estoy");
-                console.log('pase')
-                document.getElementById("urlRedirect").style.readOnly = document.getElementById("redirect").checked;
+                alert(document.getElementById("redirect").checked);
+                document.getElementById("urlRedirect").style.readOnly = document.getElementById("redirect").checked?"block":"none";
             }
         </script>
     </head>
