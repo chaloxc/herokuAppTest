@@ -52,6 +52,7 @@ define([
         let title       = inArguments[0].WPNtitle?inArguments[0].WPNtitle:"";
         let message     = inArguments[0].WPNmessage?inArguments[0].WPNmessage:"";
         let urlRedirect = inArguments[0].urlRedirect?inArguments[0].urlRedirect:"";
+        let isChecked   = inArguments[0].isChecked?inArguments[0].isChecked:false;
         let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject ? dataObject : inArguments[0];
         let tokenExists = false;
@@ -87,7 +88,9 @@ define([
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
         document.getElementById("urlRedirect").value = urlRedirect;
-        
+        document.getElementById("redirect").checked = isChecked;
+        document.getElementById("urlRedirect").readOnly = !isChecked;
+
         connection.trigger('updateButton', {
             button: 'next',
             text: 'done',
@@ -108,7 +111,8 @@ define([
         let WPNmessage = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
         let WPNtitle = document.getElementById("title").value ? document.getElementById("title").value : "";
         let urlRedirect = document.getElementById("urlRedirect").value ? document.getElementById("urlRedirect").value : "";
-        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect }];          
+        let isChecked = document.getElementById("redirect").checked;
+        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isChecked }];          
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  

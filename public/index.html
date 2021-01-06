@@ -30,9 +30,9 @@
                 let checkBox = document.getElementById("redirect");
                 var urlInput = document.getElementById("urlRedirect");
                 if (checkBox.checked){
-                    urlInput.style.display = "block";
+                    urlInput.readOnly = true;
                 } else {
-                    urlInput.style.display = "none";
+                    urlInput.readOnly = false;
                 }
             }
         </script>
@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label for="urlRedirect">Redireccionamiento personalizado</label>
                     <input type="checkbox" id="redirect" name="redirect" onclick="checkChange()">
-                    <input type="text" class="form-control" id="urlRedirect" placeholder="Ingrese una URL" style="display:none"></textarea>
+                    <input type="text" class="form-control" id="urlRedirect" placeholder="Ingrese una URL" readonly></textarea>
                 </div>
             </form>
             <div class="alert alert-danger" role="alert" id="error" style="display:none;">
