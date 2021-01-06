@@ -27,8 +27,14 @@
                 require(config, dependencies);
             })();
             let checkChange = () => {
-                alert(document.getElementById("redirect").checked);
-                document.getElementById("urlRedirect").style.display = document.getElementById("redirect").checked?"block":"none";
+                let checkBox = document.getElementById("redirect");
+                var urlInput = document.getElementById("urlRedirect");
+                if (checkBox.checked){
+                    urlInput.style.display = "block";
+                } else {
+                    urlInput.style.display = "none";
+                }
+                console.log("checkeado "+checkBox.checked);
             }
         </script>
     </head>
