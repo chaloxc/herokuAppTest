@@ -70,7 +70,7 @@
                             "to":"${decodedArgs.token}",
                             "notification":{
                               "title":"${customTitle}",
-                              "body":"${customMessage} -test ",
+                              "body":"${customMessage}",
                               "click_action":"${urlRedirect}"
                             },
                             "data":{
