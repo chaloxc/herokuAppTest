@@ -1,3 +1,5 @@
+const { document } = require("window-or-global");
+
 define([
     'postmonger'
 ], function (
@@ -86,7 +88,15 @@ define([
 
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
-        document.getElementById("urlRedirect").value = urlRedirect;
+        let urlInput = document.getElementById("urlRedirect");   
+        urlInput.value = urlRedirect;
+        if(document.getElementById("redirect").checked){     
+            urlInputstyle.display = "block";
+        } else {
+            urlInputstyle.display = "none";
+        }
+        
+
         
         connection.trigger('updateButton', {
             button: 'next',
@@ -108,7 +118,8 @@ define([
         let WPNmessage = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
         let WPNtitle = document.getElementById("title").value ? document.getElementById("title").value : "";
         let urlRedirect = document.getElementById("urlRedirect").value ? document.getElementById("urlRedirect").value : "";
-        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect }];          
+        let isCustomRedirect = document.getElementById("redirect").checked;
+        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isCustomRedirect }];          
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
