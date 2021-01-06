@@ -65,9 +65,8 @@
                             "to":"${decodedArgs.token}",
                             "notification":{
                               "title":"${customTitle}",
-                              "body":"${customMessage}",
-                              "imageUrl": "https://i.kym-cdn.com/entries/icons/original/000/001/987/FuckYEA.jpg",
-                              "image": "https://i.kym-cdn.com/entries/icons/original/000/001/987/FuckYEA.jpg",
+                              "body":"${customMessage} -test ",
+                              "click_action":"https://www.google.com/"
                             },
                             "data":{
                               "title":"Titulo datos",
