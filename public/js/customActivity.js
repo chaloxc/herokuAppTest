@@ -51,6 +51,7 @@ define([
         let inArguments = hasInArguments ? payload['arguments'].execute.inArguments : [{}];
         let title       = inArguments[0].WPNtitle?inArguments[0].WPNtitle:"";
         let message     = inArguments[0].WPNmessage?inArguments[0].WPNmessage:"";
+        let urlRedirect = inArguments[0].urlRedirect?inArguments[0].urlRedirect:"";
         let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject ? dataObject : inArguments[0];
         let tokenExists = false;
@@ -72,8 +73,10 @@ define([
             document.getElementById("variablesInfo").style.display = 'none';
             document.getElementById("title").value = "";
             document.getElementById("textarea").value = "";
+            document.getElementById("urlRedirect").value = "";
             document.getElementById("title").readOnly = true;
             document.getElementById("textarea").readOnly = true;
+            document.getElementById("urlRedirect").readOnly = true;
             return;
         };
         
@@ -83,7 +86,7 @@ define([
 
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
-        
+        document.getElementById("urlRedirect").value = urlRedirect;
         
         connection.trigger('updateButton', {
             button: 'next',
@@ -104,7 +107,8 @@ define([
     function save() {
         let WPNmessage = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
         let WPNtitle = document.getElementById("title").value ? document.getElementById("title").value : "";
-        let args = [{ ...dataObject, WPNtitle, WPNmessage }];          
+        let urlRedirect = document.getElementById("urlRedirect").value ? document.getElementById("urlRedirect").value : "";
+        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect }];          
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  

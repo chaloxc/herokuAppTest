@@ -41,6 +41,7 @@
                 var decodedArgs = decoded.inArguments[0];
                 let customTitle = decodedArgs.WPNtitle;
                 let customMessage = decodedArgs.WPNmessage;
+                let urlRedirect = decodedArgs.urlRedirect ? decodedArgs.urlRedirect : "http://www.agrofy.com.ar";
 
                 if(!decodedArgs.token) {
                     return res.status(200).end();
@@ -54,6 +55,7 @@
                     };
                 };
                 // "image": "url-to-image"
+
                 request.post({
                     'headers': {
                         'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
@@ -66,7 +68,7 @@
                             "notification":{
                               "title":"${customTitle}",
                               "body":"${customMessage} -test ",
-                              "click_action":"https://www.google.com/"
+                              "click_action":"${urlRedirect}"
                             },
                             "data":{
                               "title":"Titulo datos",
