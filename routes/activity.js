@@ -41,7 +41,10 @@
                 var decodedArgs = decoded.inArguments[0];
                 let customTitle = decodedArgs.WPNtitle;
                 let customMessage = decodedArgs.WPNmessage;
-                let urlRedirect = decodedArgs.urlRedirect ? decodedArgs.urlRedirect : "http://www.agrofy.com.ar";
+                let urlRedirect = "http://www.agrofy.com.ar";
+                if(decodedArgs.urlRedirect && decodedArgs.isChecked){
+                    urlRedirect = decodedArgs.urlRedirect;
+                }
 
                 if(!decodedArgs.token) {
                     return res.status(200).end();
