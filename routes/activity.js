@@ -66,10 +66,10 @@
                 };
                 // "image": "url-to-image"
                 
-                admin.initializeApp({
-                    credential: admin.credential.cert(serviceAccount),
-                    databaseURL: "https://ticketsbayer.firebaseio.com"
-                });
+                //admin.initializeApp({
+                  //  credential: admin.credential.cert(serviceAccount),
+                    //databaseURL: "https://ticketsbayer.firebaseio.com"
+                //});
                 
                 var jwtClient = new google.auth.JWT(
                     serviceAccount.client_email,
@@ -108,17 +108,19 @@
                                 "notification": {
                                     "title":"${customTitle}",
                                     "body":"${customMessage}",
-                                    "click_action":"${urlRedirect}"
                                 },
                                 "webpush": {
                                     "notification": {
-                                        "icon":"https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png"
+                                        "icon":"https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png",
+                                        "click_action":"${urlRedirect}"
                                     }
                                 }
                             }
                         }
                     `
                 },(sendError, sendResponse, sendBody) => {
+                    console.log('@error: ' + sendError ? sendError:"no hay")
+                    console.log('@response:' + sendResponse ? sendResponse:"no hay")
                     res.status(200).end();
                 });
                 res.status(200).end();
