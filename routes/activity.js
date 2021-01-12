@@ -93,37 +93,39 @@
                       // on how to use the access token to send authenticated requests to
                       // the Realtime Database REST API.
                     }
-                });
-                
-                request.post({
-                    'headers': {
-                        'Authorization': 'Bearer '+accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    'url': 'https://fcm.googleapis.com/v1/projects/ticketsbayer/messages:send',
-                    'body': `
-                        {
-                            "message": {
-                                "token": "${decodedArgs.token}",
-                                "notification": {
-                                    "title":"${customTitle}",
-                                    "body":"${customMessage}",
-                                },
-                                "webpush": {
+                }).then( () => {
+                    request.post({
+                        'headers': {
+                            'Authorization': 'Bearer '+accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        'url': 'https://fcm.googleapis.com/v1/projects/ticketsbayer/messages:send',
+                        'body': `
+                            {
+                                "message": {
+                                    "token": "${decodedArgs.token}",
                                     "notification": {
-                                        "icon":"https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png",
-                                        "click_action":"${urlRedirect}"
+                                        "title":"${customTitle}",
+                                        "body":"${customMessage}",
+                                    },
+                                    "webpush": {
+                                        "notification": {
+                                            "icon":"https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png",
+                                            "click_action":"${urlRedirect}"
+                                        }
                                     }
                                 }
                             }
-                        }
-                    `
-                },(sendError, sendResponse, sendBody) => {
-                    console.log('@error: ' + sendError ? sendError:"no hay")
-                    console.log('@response:' + sendResponse ? sendResponse:"no hay")
+                        `
+                    },(sendError, sendResponse, sendBody) => {
+                        console.log('@error: ' + sendError ? sendError:"no hay")
+                        console.log('@response:' + sendResponse ? sendResponse:"no hay")
+                        res.status(200).end();
+                    });
                     res.status(200).end();
-                });
-                res.status(200).end();
+                })
+                
+                
             } else {
                 console.error('inArguments invalid.');
                 return res.status(400).end();
