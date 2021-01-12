@@ -66,10 +66,10 @@
                 };
                 // "image": "url-to-image"
                 
-                admin.initializeApp({
-                    credential: admin.credential.cert(serviceAccount),
-                    databaseURL: "https://ticketsbayer.firebaseio.com"
-                });
+                //admin.initializeApp({
+                //    credential: admin.credential.cert(serviceAccount),
+                //    databaseURL: "https://ticketsbayer.firebaseio.com"
+                //});
                 
                 var jwtClient = new google.auth.JWT(
                     serviceAccount.client_email,
