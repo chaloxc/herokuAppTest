@@ -66,10 +66,14 @@
                 };
                 // "image": "url-to-image"
                 
-                //admin.initializeApp({
-                  //  credential: admin.credential.cert(serviceAccount),
-                    //databaseURL: "https://ticketsbayer.firebaseio.com"
-                //});
+                try {
+                    admin.initializeApp({
+                        credential: admin.credential.cert(serviceAccount),
+                        databaseURL: "https://ticketsbayer.firebaseio.com"
+                    });
+                } catch(e) {
+                    console.log("error: "+e);
+                }
                 
                 var jwtClient = new google.auth.JWT(
                     serviceAccount.client_email,
@@ -92,7 +96,7 @@
                       // See the "Using the access token" section below for information
                       // on how to use the access token to send authenticated requests to
                       // the Realtime Database REST API.
-                        request.post({
+                        /*request.post({
                             'headers': {
                                 'Authorization': 'Bearer '+accessToken,
                                 'Content-Type': 'application/json'
@@ -120,7 +124,28 @@
                             console.log('@response:' + sendResponse ? sendResponse:"no hay")
                             res.status(200).end();
                         });
-                        res.status(200).end();
+                        res.status(200).end();*/
+
+                        var message = {
+                            token: `${decodedArgs.token}`,
+                            notification: {
+                                title:`${customTitle}`,
+                                body:`${customMessage}`,
+                            },
+                            webpush: {
+                                notification: {
+                                    icon:`https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png`,
+                                    click_action:`${urlRedirect}`
+                                }
+                            }
+                        };
+                        admin.messaging().send(message)
+                            .then((response) => {
+                                console.log('Successfully sent message:', response);
+                            })
+                            .catch((error) => {
+                                console.log('Error sending message:', error);
+                            });
                     }
                 })
                 
