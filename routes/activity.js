@@ -4,6 +4,13 @@
     // Deps
     const Path = require('path');
     const JWT = require(Path.join(__dirname, '..', 'lib', 'jwtDecoder.js'));
+    const admin = require("firebase-admin");
+    const serviceAccount = require(Path.join(__dirname, '..', 'lib', 'ticketsbayer-firebase-adminsdk-4pkyr-9e4c59b9df.json'));
+    var { google } = require("googleapis");
+    var scopes = [
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/firebase.database"
+      ];
     const express = require('express');
     const app = express();
     const request = require('request');
@@ -58,26 +65,55 @@
                     };
                 };
                 // "image": "url-to-image"
+                
+                admin.initializeApp({
+                    credential: admin.credential.cert(serviceAccount),
+                    databaseURL: "https://ticketsbayer.firebaseio.com"
+                });
+                
+                var jwtClient = new google.auth.JWT(
+                    serviceAccount.client_email,
+                    null,
+                    serviceAccount.private_key,
+                    scopes
+                );
 
+                var accessToken = ""
+
+                jwtClient.authorize(function(error, tokens) {
+                    if (error) {
+                        console.log("Error making request to generate access token:", error);
+                    } else if (tokens.access_token === null) {
+                        console.log("Provided service account does not have permission to generate access tokens");
+                    } else {
+                        accessToken = tokens.access_token;
+                      // See the "Using the access token" section below for information
+                      // on how to use the access token to send authenticated requests to
+                      // the Realtime Database REST API.
+                    }
+                });
+                
                 request.post({
                     'headers': {
-                        'Authorization': 'key=AAAA6sSylXA:APA91bFT31-TLQq6XVYgrT7IZN4cq3kXKbPl1RKXtx7fgsfzRg_D2VOlRiods3IHHYj09JvFw8YVWZxqZP4F7EeTXgE70VPrggZNXn4Wt-TBHucRZDssmqrnmjwJn_Yrm5zk6RCAStTG',
+                        'Authorization': 'Bearer '+accessToken,
                         'Content-Type': 'application/json'
                     },
-                    'url': 'https://fcm.googleapis.com/fcm/send',
+                    'url': 'https://fcm.googleapis.com/v1/projects/ticketsbayer/messages:send',
                     'body': `
-                        { 
-                            "to":"${decodedArgs.token}",
-                            "notification":{
-                              "title":"${customTitle}",
-                              "body":"${customMessage}",
-                              "click_action":"${urlRedirect}"
-                            },
-                            "data":{
-                              "title":"Titulo datos",
-                              "body":"Body datos "
-                            },
-                            "priority":"high"
+                        {
+                            "message": {
+                                "token": "${decodedArgs.token}",
+                                "notification": {
+                                    "title":"${customTitle}",
+                                    "body":"${customMessage}",
+                                    "click_action":"${urlRedirect}"
+                                },
+                                "webpush": {
+                                    "notification": {
+                                        "icon":"https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png"
+                                    }
+                                }
+                            }
                         }
                     `
                 },(sendError, sendResponse, sendBody) => {
