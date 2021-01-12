@@ -100,7 +100,7 @@
                             },
                             webpush: {
                                 notification: {
-                                    icon:`https://e7.pngegg.com/pngimages/340/745/png-clipart-computer-icons-white-instagram-icon-text-logo.png`,
+                                    icon:`https://www.agrofy.com.ar/favicon.ico`,
                                     click_action:`${urlRedirect}`
                                 }
                             }
