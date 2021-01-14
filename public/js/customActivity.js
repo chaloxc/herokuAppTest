@@ -47,7 +47,16 @@ define([
             payload['arguments'].execute.inArguments &&
             payload['arguments'].execute.inArguments.length > 0
         );
-
+        
+        var hasOutArguments = Boolean(
+            payload['arguments'] &&
+            payload['arguments'].execute &&
+            payload['arguments'].execute.outArguments &&
+            payload['arguments'].execute.outArguments.length > 0
+        );
+        
+        console.log(hasOutArguments?"@@@ Out Arguments: "+payload['arguments'].execute.outArguments : "@@@ No tiene out arguments");
+        
         let inArguments = hasInArguments ? payload['arguments'].execute.inArguments : [{}];
         let title       = inArguments[0].WPNtitle?inArguments[0].WPNtitle:"";
         let message     = inArguments[0].WPNmessage?inArguments[0].WPNmessage:"";
