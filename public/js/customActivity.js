@@ -23,7 +23,7 @@ define([
             for(var i = 0; i < schemas.length; i++) {
                 console.log(`@@@ Schema on render(${i}): ${schemas[i]}`);
                 console.log(`@@@ Stringified Schema on render(${i}): ${JSON.stringify(schemas[i])}`);
-                let isDEAudience = (schemas[i].key.split('.')[2]).includes("DEAudience");
+                let isDEAudience = (schemas[i].key.split('.')[1]).includes("DEAudience");
                 console.log(`@Es audiencia ${isDEAudience}`);
                 
                 if(isDEAudience){
