@@ -20,6 +20,15 @@
      */
     exports.edit = function (req, res) {
         console.log('edit');
+        JWT(req.body, process.env.jwtSecret, (err, decoded) => {
+            if (err) {
+                console.error(err);
+                return res.status(401).end();
+            }
+            if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+                console.log("Decoded: "+decoded);
+            }
+        });
         // Data from the req and put it in an array accessible to the main app.
         //console.log( req.body );
         res.status(200).send('Edit');
@@ -29,7 +38,15 @@
      * POST Handler for /save/ route of Activity.
      */
     exports.save = function (req, res) {
-
+        JWT(req.body, process.env.jwtSecret, (err, decoded) => {
+            if (err) {
+                console.error(err);
+                return res.status(401).end();
+            }
+            if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+                console.log("Decoded: "+decoded);
+            }
+        });
         res.status(200).send('Save');
     };
 
@@ -43,7 +60,7 @@
                 console.error(err);
                 return res.status(401).end();
             }
-            
+           
             if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
                 var decodedArgs = decoded.inArguments[0];
                 let customTitle = decodedArgs.WPNtitle;
@@ -135,6 +152,17 @@
      * POST Handler for /validate/ route of Activity.
      */
     exports.validate = function (req, res) {
+        JWT(req.body, process.env.jwtSecret, (err, decoded) => {
+            if (err) {
+                console.error(err);
+                return res.status(401).end();
+            }
+            if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+                console.log("Decoded: "+decoded);
+            }
+        });
+
+        
         res.status(200).send('Validate');
     };
 
