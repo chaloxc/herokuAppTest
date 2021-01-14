@@ -1,3 +1,5 @@
+const { alert } = require("window-or-global");
+
 define([
     'postmonger'
 ], function (
@@ -122,8 +124,7 @@ define([
         let urlRedirect = document.getElementById("urlRedirect").value ? document.getElementById("urlRedirect").value : "";
         let isChecked = document.getElementById("redirect").checked;
         let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isChecked }];   
-        console.log(payload['arguments'].execute && payload['arguments'].execute.outArguments ? "@@@ Out Arguments: " : "@@@ No tiene out arguments"); 
-        console.log("@@@ Payload "+payload['arguments']);
+        alert(payload['arguments'].execute && payload['arguments'].execute.outArguments ? "@@@ Out Arguments: " : "@@@ No tiene out arguments"); 
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
