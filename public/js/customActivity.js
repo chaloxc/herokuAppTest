@@ -20,8 +20,9 @@ define([
         connection.trigger('requestSchema');
         connection.on('requestedSchema', function (data) {
             schemas = data['schema'];
-            console.log("@@@ Schema on render: "+schemas);
             for(var i = 0; i < schemas.length; i++) {
+                console.log(`@@@ Schema on render(${i}): ${schemas[i]}`);
+                console.log(`@@@ Stringified Schema on render(${i}): ${JSON.stringify(schemas[i])}`);
                 let key     = schemas[i].key.split('.')[2]; 
                 let value   = schemas[i].key;
                 dataObject += `, "${key}":"{{${value}}}"`;   
@@ -123,6 +124,7 @@ define([
         let isChecked = document.getElementById("redirect").checked;
         let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isChecked }];  
         console.log("@@@Args save: "+args);
+        console.log("@@@Stringified Args save: "+JSON.stringify(args));
         payload['arguments'].execute.inArguments = args;
         payload['metaData'].isConfigured = true;
         connection.trigger('updateActivity', payload);  
