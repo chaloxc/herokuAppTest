@@ -88,20 +88,12 @@
                         credential: admin.credential.cert(serviceAccount),
                         databaseURL: "https://ticketsbayer.firebaseio.com"
                     });
-                    console.log('@ Inicializando por primera vez ...');
+                    console.log('@ Inicializando por primera vez ...')
                 } catch(e) {
                     console.log("error: "+e);
-                };
+                }
                 
-                admin.messaging().send(message)
-                            .then((response) => {
-                                console.log('Successfully sent message:', response);
-                            })
-                            .catch((error) => {
-                                console.log('Error sending message:', error);
-                            });
-                
-                /*var jwtClient = new google.auth.JWT(
+                var jwtClient = new google.auth.JWT(
                     serviceAccount.client_email,
                     null,
                     serviceAccount.private_key,
@@ -140,7 +132,7 @@
                             });
                     }
                 })
-                */
+                
                 
             } else {
                 console.error('inArguments invalid.');
