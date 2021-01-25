@@ -66,6 +66,12 @@
                 let customTitle = decodedArgs.WPNtitle;
                 let customMessage = decodedArgs.WPNmessage;
                 let urlRedirect = "http://www.agrofy.com.ar";
+                let iconUrl = "https://www.agrofy.com.ar/favicon.ico";
+                
+                if(decodedArgs.iconUrl && decodedArgs.isCheckedIcon){
+                    iconUrl = decodedArgs.iconUrl;
+                }
+
                 if(decodedArgs.urlRedirect && decodedArgs.isChecked){
                     urlRedirect = decodedArgs.urlRedirect;
                 }
@@ -79,6 +85,9 @@
                         let keyToReplace = new RegExp('%%'+key+'%%',"g");
                         customTitle = customTitle.replace(keyToReplace, decodedArgs[key]);
                         customMessage = customMessage.replace(keyToReplace, decodedArgs[key]);
+                        // custon URL e ICON
+                        iconUrl = iconUrl.replace(keyToReplace, decodedArgs[key]);
+                        urlRedirect = urlRedirect.replace(keyToReplace, decodedArgs[key]);
                     };
                 };
                 // "image": "url-to-image"
@@ -117,7 +126,7 @@
                             },
                             webpush: {
                                 notification: {
-                                    icon:`https://www.agrofy.com.ar/favicon.ico`,
+                                    icon:`${iconUrl}`,
                                     click_action:`${urlRedirect}`
                                 }
                             }

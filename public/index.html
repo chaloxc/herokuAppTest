@@ -26,9 +26,20 @@
                 });
                 require(config, dependencies);
             })();
+            // custom url
             let checkChange = () => {
                 let checkBox = document.getElementById("redirect");
                 var urlInput = document.getElementById("urlRedirect");
+                if (checkBox.checked){
+                    urlInput.readOnly = false;
+                } else {
+                    urlInput.readOnly = true;
+                }
+            }
+            // custom icon
+            let checkChangeIcon = () => {
+                let checkBox = document.getElementById("iconCheck");
+                var urlInput = document.getElementById("iconURL");
                 if (checkBox.checked){
                     urlInput.readOnly = false;
                 } else {
@@ -53,6 +64,11 @@
                     <label for="urlRedirect">Redireccionamiento personalizado</label>
                     <input type="checkbox" id="redirect" name="redirect" onclick="checkChange()">
                     <input type="text" class="form-control" id="urlRedirect" placeholder="Ingrese una URL" readonly></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="iconURL">Icono personalizado</label>
+                    <input type="checkbox" id="iconCheck" name="iconCheck" onclick="checkChangeIcon()">
+                    <input type="text" class="form-control" id="iconURL" placeholder="Ingrese una URL" readonly></textarea>
                 </div>
             </form>
             <div class="alert alert-danger" role="alert" id="error" style="display:none;">

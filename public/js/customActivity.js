@@ -66,8 +66,15 @@ define([
         let inArguments = hasInArguments ? payload['arguments'].execute.inArguments : [{}];
         let title       = inArguments[0].WPNtitle?inArguments[0].WPNtitle:"";
         let message     = inArguments[0].WPNmessage?inArguments[0].WPNmessage:"";
+        
+        // URL action custom
         let urlRedirect = inArguments[0].urlRedirect?inArguments[0].urlRedirect:"";
         let isChecked   = inArguments[0].isChecked?inArguments[0].isChecked:false;
+        
+        // ICON image custom #1
+        let iconUrl = inArguments[0].iconUrl?inArguments[0].iconUrl:"";
+        let isCheckedIcon   = inArguments[0].isCheckedIcon?inArguments[0].isCheckedIcon:false;
+
         let allowedData = 'Datos disponibles: ';
         let getVariablesFrom = dataObject ? dataObject : inArguments[0];
         let tokenExists = false;
@@ -102,9 +109,15 @@ define([
 
         document.getElementById("title").value = title;
         document.getElementById("textarea").value = message;
+        // URL action custom
         document.getElementById("urlRedirect").value = urlRedirect;
         document.getElementById("redirect").checked = isChecked;
         document.getElementById("urlRedirect").readOnly = !isChecked;
+
+        // ICON image custom #1
+        document.getElementById("urlRedirect").value = iconUrl;
+        document.getElementById("redirect").checked = isCheckedIcon;
+        document.getElementById("urlRedirect").readOnly = !isCheckedIcon;
 
         connection.trigger('updateButton', {
             button: 'next',
@@ -125,9 +138,14 @@ define([
     function save() {
         let WPNmessage = document.getElementById("textarea").value ? document.getElementById("textarea").value : "";
         let WPNtitle = document.getElementById("title").value ? document.getElementById("title").value : "";
+        // URL action custom
         let urlRedirect = document.getElementById("urlRedirect").value ? document.getElementById("urlRedirect").value : "";
         let isChecked = document.getElementById("redirect").checked;
-        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isChecked }];  
+        // ICON image custom #2
+        let iconUrl = document.getElementById("iconURL").value ? document.getElementById("iconURL").value : "";
+        let isCheckedIcon = document.getElementById("iconCheck").checked;
+
+        let args = [{ ...dataObject, WPNtitle, WPNmessage, urlRedirect, isChecked, iconUrl, isCheckedIcon}];  
         console.log("@@@Args save: "+args);
         console.log("@@@Stringified Args save: "+JSON.stringify(args));
         payload['arguments'].execute.inArguments = args;
