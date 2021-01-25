@@ -115,9 +115,9 @@ define([
         document.getElementById("urlRedirect").readOnly = !isChecked;
 
         // ICON image custom #1
-        document.getElementById("urlRedirect").value = iconUrl;
-        document.getElementById("redirect").checked = isCheckedIcon;
-        document.getElementById("urlRedirect").readOnly = !isCheckedIcon;
+        document.getElementById("iconURL").value = iconUrl;
+        document.getElementById("iconCheck").checked = isCheckedIcon;
+        document.getElementById("iconURL").readOnly = !isCheckedIcon;
 
         connection.trigger('updateButton', {
             button: 'next',
